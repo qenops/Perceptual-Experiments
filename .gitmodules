@@ -1,0 +1,3 @@
+[submodule "shared_modules/dGraph"]
+	path = shared_modules/dGraph
+	url = https://github.com/qenops/dGraph.git
