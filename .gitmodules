@@ -1,3 +1,6 @@
 [submodule "shared_modules/dGraph"]
-	path = code/shared_modules/dGraph
+	path = code/submodules/dGraph
 	url = https://github.com/qenops/dGraph.git
+[submodule "code/submodules/dDisplay"]
+	path = code/submodules/dDisplay
+	url = https://github.com/qenops/dDisplay.git
