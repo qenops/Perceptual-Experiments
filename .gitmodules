@@ -4,3 +4,6 @@
 [submodule "code/submodules/dDisplay"]
 	path = code/submodules/dDisplay
 	url = https://github.com/qenops/dDisplay.git
+[submodule "code/submodules/psychopy"]
+	path = code/submodules/psychopy
+	url = https://github.com/qenops/psychopy.git
