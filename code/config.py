@@ -9,34 +9,55 @@ mon_33cm = psychopy.monitors.calibTools.Monitor(name="33cm")
 mon_33cm.currentCalib['distance'] = 33.0
 mon_33cm.currentCalib['sizePix'] = [2048, 1536]
 mon_33cm.currentCalib['width'] = 20.0
-mon_33cm.screen = 2
+mon_33cm.screenPos = (-2560, 1440)
+#mon_33cm.screen = 2
 mon_33cm.flipHoriz = True
 
 mon_50cm = psychopy.monitors.calibTools.Monitor(name="50cm")
 mon_50cm.currentCalib['distance'] = 50.0
 mon_50cm.currentCalib['sizePix'] = [2048, 1536]
 mon_50cm.currentCalib['width'] = 20.0
-mon_50cm.screen = 4
+mon_50cm.screenPos = (-512, 1440)
+#mon_50cm.screen = 4
 mon_50cm.flipHoriz = True
 
 mon_100cm = psychopy.monitors.calibTools.Monitor(name="100cm")
 mon_100cm.currentCalib['distance'] = 100.0
-mon_100cm.currentCalib['sizePix'] = [2560, 1600]
+mon_100cm.currentCalib['sizePix'] = [2560, 1440]
 mon_100cm.currentCalib['width'] = 64.0
-mon_100cm.screen = 5
+mon_100cm.screenPos = (1536, 1440)
+#mon_100cm.screen = 5
 mon_100cm.flipHoriz = True
 
 mon_800cm = psychopy.monitors.calibTools.Monitor(name="800cm")
 mon_800cm.currentCalib['distance'] = 800.0
 mon_800cm.currentCalib['sizePix'] = [1080, 1920]
 mon_800cm.currentCalib['width'] = 86.5
-mon_800cm.screen = 3
+mon_800cm.screenPos = (4096, 1440)
+#mon_800cm.screen = 3
 mon_800cm.flipHoriz = False
 
 monitors=[mon_33cm,mon_50cm,mon_100cm,mon_800cm]
 #monitors=[mon_33cm,mon_50cm]
 #monitors=[mon_33cm]
 
+#figure out which monitor is which pyglet screen
+import pyglet
+window = pyglet.window.Window()
+platform = pyglet.window.get_platform()
+display = platform.get_default_display()
+screens = display.get_screens()
+for monitor in monitors:
+    monitor.screen = screens.index(list(filter(lambda x: x.x==monitor.screenPos[0] and x.y==monitor.screenPos[1],screens))[0])
+window.close()
+
+### joystick parameters ###
+joyID = 0
+
 ### data parameters ###
-dataPath = '.\data'
+dataPath = './data'
 userFile = 'users.psydat'
+
+### assets parameters ###
+assetsPath = './assets'
+stimulusFont = 'Snellen.ttf'

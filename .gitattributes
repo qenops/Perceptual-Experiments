@@ -1,3 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-code/Snellen.sfd eol=lf
+code/assets/Snellen.sfd eol=lf
+code/assets/Snellen2.sfd eol=lf
+code/assets/Snellen3.sfd eol=lf

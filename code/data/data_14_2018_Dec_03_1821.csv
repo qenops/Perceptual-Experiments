@@ -1,0 +1,5 @@
+primeDepth,primeCorrect,stimDepth,orientation,contrast,frequency,latency,correct
+[33.0, True, 50.0, 0, 1.0, array([20., 20.]), 60, True]
+[33.0, True, 50.0, 90, 1.0, array([20., 20.]), 60, True]
+[33.0, False, 50.0, 0, 1.0, array([20., 20.]), 60, True]
+[33.0, True, 50.0, 0, 1.0, array([20., 20.]), 60, True]

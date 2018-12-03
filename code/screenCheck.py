@@ -13,12 +13,12 @@ import config
 windStims = []
 for monitor in config.monitors:
     win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, fullscr=True, units="deg",color=[-1,-1,-1])
-    stim = visual.TextStim(win=win,font='Snellen', height=10, pos=[0,0], text='%s'%monitor.screen, flipHoriz=monitor.flipHoriz) # may want to set fontFiles to include our ennumbered version of snellen (once it is complete)
+    stim = visual.TextStim(win=win,font='Snellen', height=3, pos=[0,0], text='%s'%monitor.screen, flipHoriz=monitor.flipHoriz) # may want to set fontFiles to include our local version of snellen rather than using installed version
     windStims.append((win,stim))
 for win, stim in windStims:
     stim.draw(win)
     win.flip()
-core.wait(100.0)
+core.wait(10.0)
 for win, stim in windStims:
     win.flip()
     win.close()
