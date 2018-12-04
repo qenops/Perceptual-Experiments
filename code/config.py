@@ -57,7 +57,13 @@ joyID = 0
 ### data parameters ###
 dataPath = './data'
 userFile = 'users.psydat'
+stairFile = 'stair.csv'
 
 ### assets parameters ###
 assetsPath = './assets'
 stimulusFont = 'Snellen.ttf'
+
+### log file ###
+from psychopy import logging
+logFile = 'experimentLog.log'
+logLevel = logging.INFO

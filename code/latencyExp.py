@@ -22,7 +22,7 @@ sys.path.append('./submodules')
 #import dGraph.lights as dgl
 #import dGraph.util.imageManip as dgim
 #import multiprocessing as mp
-from psychopy import visual, core, gui, data, event
+from psychopy import visual, core, gui, data, event, logging
 from psychopy.tools.filetools import fromFile, toFile
 from psychopy.hardware import joystick
 import config
@@ -30,10 +30,14 @@ import numpy as np
 import random
 
 BACKEND = 'pyglet'
+SPF = .016          # seconds per frame
 
 class Experiment():
     def __init__(self, config=config):
         self.config = config
+        self.setupLogging()
+        self.clock = core.Clock()
+        self.timer = core.Clock()
         self.setupWindows()
         self.setupJoystick()
         self.getUser()
@@ -43,11 +47,15 @@ class Experiment():
         self.setupData()
         self.setupStimuli()
         self.setupHandler()
+    def setupLogging(self):
+        logging.console.setLevel(logging.ERROR)
+        self.log = logging.LogFile(self.config.logFile, level=self.config.logLevel, filemode='w')
     def setupWindows(self):
         #create the windows
         self.windows = []
+        self.activeWindows = []
         for monitor in self.config.monitors:
-            win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, fullscr=True, units="deg",color=[-1,-1,-1])
+            win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg",color=[-1,-1,-1],waitBlanking=False)
             self.windows.append(win)
     def setupJoystick(self):
         joystick.backend = BACKEND
@@ -70,7 +78,7 @@ class Experiment():
         else:
             self.userInfo = None
     def setupData(self):
-        self.dataKeys = ['primeDepth','primeCorrect','stimDepth','orientation','contrast','frequency','latency','correct']
+        self.dataKeys = ['primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','orientation','contrast','frequency','requestedLatency','actualLatency','responseTime','correct']
         # make a text file to save data
         fileName = 'data_%s_%s'%(self.userInfo['ID'],self.userInfo['Date'])
         self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%fileName), 'w')  # a simple text file with 'comma-separated-values'
@@ -82,44 +90,67 @@ class Experiment():
         grating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, autoLog=True)
         postGrating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, contrast=0, autoLog=True)
         self.stimuli = [primeStim, grating, postGrating]
+        self.stimuliTime = [0,0,0]
     def setupHandler(self):
         # create the staircase handler
-        self.handler = data.StairHandler(startVal = 60,
-                                stepType = 'lin', stepSizes=[8,4,4,2,2,2,1,1,1,1],
-                                nUp=1, nDown=3,  # will home in on the 80% threshold
-                                nTrials=1)
-        #staircase = data.QuestHandler(startVal=60, startValSd=30, pThreshold=0.82,nTrials=20)
+        #self.handler = data.StairHandler(startVal = 60, minVal=0,
+        #                        stepType = 'lin', stepSizes=[8,4,2,2,1,1],
+        #                        nUp=1, nDown=3,  # will home in on the 80% threshold
+        #                        nTrials=1)
+        #self.handler = data.QuestHandler(startVal=60, startValSd=30, pThreshold=0.82,nTrials=20)
+        conditions=[
+            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+        ]
+        self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
     def proceedure(self):
         '''The proceedure of the experiment'''
-        for frames in self.handler:
+        for frames, condition in self.handler:
             primed = False
             #while not primed:
             data = {}
-            data['latency'] = frames
+            data['requestedLatency'] = frames * SPF
+            # set up windows according to this handler
+            i = list(range(len(self.windows)))
+            mainWindow = random.choice(i[condition['diopters']:])
+            primeWindow = mainWindow - condition['diopters']
+            if not condition['nearToFar']:
+                primeWindow = mainWindow
+                mainWindow = primeWindow - condition['diopters']
+            data['nearToFar'] = condition['nearToFar']
+            data['diopters'] = condition['diopters']
             # set up stimuli with some randomness
-            text, primeValue = self.genLogicPrimer()     # set the text and store the value for the primer
+            text, primeValue = self.genLogicPrimer()        # set the text and store the value for the primer
             self.stimuli[0].text = text
-            self.stimuli[0].win = self.windows[0]   # set the primer stimulus window
-            self.stimuli[0].flipHoriz = self.config.monitors[0].flipHoriz
-            data['primeDepth'] = self.config.monitors[0].currentCalib['distance']
-            orientation = random.getrandbits(1)     # set and store the orientation of the grating
+            self.stimuli[0].win = self.windows[primeWindow] # set the primer stimulus window
+            self.stimuli[0].flipHoriz = self.config.monitors[primeWindow].flipHoriz
+            data['primeDepth'] = self.config.monitors[primeWindow].currentCalib['distance']
+            orientation = random.getrandbits(1)             # set and store the orientation of the grating
             self.stimuli[1].ori = orientation * 90
             data['orientation'] = self.stimuli[1].ori
             data['contrast'] = self.stimuli[1].contrast
             data['frequency'] = self.stimuli[1].sf
-            self.stimuli[1].win = self.windows[1]   # set the grating and post grating stimulus window
-            self.stimuli[2].win = self.windows[1]
-            data['stimDepth'] = self.config.monitors[1].currentCalib['distance']
+            self.stimuli[1].win = self.windows[mainWindow]  # set the grating and post grating stimulus window
+            self.stimuli[2].win = self.windows[mainWindow]
+            data['stimDepth'] = self.config.monitors[mainWindow].currentCalib['distance']
             # run the proceedure
             self.presentStimulus(0)
             resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
             self.clearStimuli()
+            data['primeTime'] = self.stimuliTime[0]
             self.presentStimulus(1)
-            self.waitFrames(frames)
+            self.waitTime(frames*SPF)
             self.clearStimuli()
+            data['actualLatency'] = self.stimuliTime[1]
             self.presentStimulus(2)
             resp2 = self.waitForResponse(self.joy.getAllHats,[0],true=[[1,0],[-1,0]],false=[[0,1],[0,-1]])
             self.clearStimuli()
+            data['responseTime'] = self.stimuliTime[2]
             # record the results
             data['primeCorrect'] = resp1 == primeValue
             data['correct'] = resp2 == orientation
@@ -129,18 +160,28 @@ class Experiment():
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
             self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
+            logging.flush()
     def run(self):
         self.proceedure()
     def close(self):
+        self.handler.saveAsExcel(os.path.join(config.dataPath,config.stairFile))
         self.dataFile.close()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
         self.stimuli[idx].setAutoDraw(True)
+        self.activeWindows.append(self.stimuli[idx].win)
+        self.flip()
+        self.stimuliTime[idx] = self.clock.getTime()
     def clearStimuli(self):
         for stim in self.stimuli:
             stim.setAutoDraw(False)
+        self.flip()
+        for idx, stim in enumerate(self.stimuli):
+            if stim.win in self.activeWindows:      # calculate displayed time
+                self.stimuliTime[idx] = self.clock.getTime() - self.stimuliTime[idx]
+        self.activeWindows = []
     def flip(self):
-        for window in self.windows:
+        for window in self.activeWindows:
             window.flip()
         allKeys = event.getKeys()
         for key in allKeys:
@@ -148,7 +189,13 @@ class Experiment():
                 core.quit()
         event.clearEvents()
     def waitFrames(self,value):
+        self.activeWindows[0].waitBlanking = True
         for i in range(value):
+            self.flip()
+        self.activeWindows[0].waitBlanking = False
+    def waitTime(self,value):
+        self.timer.reset()
+        while self.timer.getTime() < value:
             self.flip()
     def waitForResponse(self,function,items,timeout=None,initial=None,true=None,false=None):
         if initial is None:
