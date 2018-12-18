@@ -87,6 +87,7 @@ class Experiment():
         primeStim = visual.TextStim(win=self.windows[0],height=.15,pos=[0,0],autoLog=True)
         primeStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         primeStim.font = os.path.splitext(self.config.stimulusFont)[0]
+        primeStim.text = 'Default'
         grating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, autoLog=True)
         postGrating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, contrast=0, autoLog=True)
         self.stimuli = [primeStim, grating, postGrating]
@@ -110,6 +111,27 @@ class Experiment():
         self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
     def proceedure(self):
         '''The proceedure of the experiment'''
+        ref = visual.GratingStim(win=self.windows[3], size=1, pos=[0,2], sf=20, contrast=0, autoLog=True)
+        ref.setAutoDraw(True)
+        refText = visual.TextStim(win=self.windows[3],height=.15,pos=[0,-2],autoLog=True)
+        refText.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]
+        refText.font = os.path.splitext(self.config.stimulusFont)[0]
+        refText.text = 'Default'
+        refText.setAutoDraw(True)
+        for a in range(4):
+            for idx, win in enumerate(self.windows):
+                for stim in self.stimuli:
+                    stim.win = self.windows[idx]
+                    stim.wrapWidth = None
+                    print(stim.wrapWidth)
+                    stim._needVertexUpdate = True
+                    stim._needUpdate = True
+                for idx, stim in enumerate(self.stimuli):
+                    self.presentStimulus(idx)
+                    self.waitTime(60*SPF)
+                    self.clearStimuli()
+
+        '''
         for frames, condition in self.handler:
             primed = False
             #while not primed:
@@ -161,6 +183,7 @@ class Experiment():
                     self.handler.addOtherData(k,v)
             self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
             logging.flush()
+        '''
     def run(self):
         self.proceedure()
     def close(self):
