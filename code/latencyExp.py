@@ -55,13 +55,24 @@ class Experiment():
         self.windows = []
         self.activeWindows = []
         for monitor in self.config.monitors:
-            win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg",color=[-1,-1,-1],waitBlanking=False)
+            win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", viewPos=monitor.center, color=[-1,-1,-1],waitBlanking=False)
+            win.flipHoriz = monitor.flipHoriz
             self.windows.append(win)
     def setupJoystick(self):
         joystick.backend = BACKEND
         if not joystick.getNumJoysticks():  # to check if we have any connected
             self.joy = None 
         self.joy = joystick.Joystick(config.joyID)  # id must be <= nJoys - 1
+        self.joyHats = self.joy.getAllHats()
+        self.joyButs = self.joy.getAllButtons().copy()
+    def joyStateChanged(self):
+        hats = self.joy.getAllHats()
+        buts = self.joy.getAllButtons()
+        if hats != self.joyHats or buts != self.joyButs:
+            self.joyHats = hats
+            self.joyButs = buts.copy()
+            return True
+        return False
     def getUser(self):
         try:  # load the users file
             allUsers = fromFile(os.path.join(self.config.dataPath,self.config.userFile))
@@ -84,14 +95,17 @@ class Experiment():
         self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%fileName), 'w')  # a simple text file with 'comma-separated-values'
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupStimuli(self):
-        primeStim = visual.TextStim(win=self.windows[0],height=.15,pos=[0,0],autoLog=True)
-        primeStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
-        primeStim.font = os.path.splitext(self.config.stimulusFont)[0]
-        primeStim.text = 'Default'
+        self.primeStim = []
+        for win in self.windows:
+            textStim = visual.TextStim(win=win,height=.15,pos=win.viewPos,autoLog=True, flipHoriz=win.flipHoriz)
+            textStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
+            textStim.font = os.path.splitext(self.config.stimulusFont)[0]
+            textStim.text = 'Default'
+            self.primeStim.append(textStim)
         grating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, autoLog=True)
         postGrating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=20, contrast=0, autoLog=True)
-        self.stimuli = [primeStim, grating, postGrating]
-        self.stimuliTime = [0,0,0]
+        self.stimuli = [textStim, grating, postGrating]
+        self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
         # create the staircase handler
         #self.handler = data.StairHandler(startVal = 60, minVal=0,
@@ -111,6 +125,7 @@ class Experiment():
         self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
     def proceedure(self):
         '''The proceedure of the experiment'''
+        '''
         ref = visual.GratingStim(win=self.windows[3], size=1, pos=[0,2], sf=20, contrast=0, autoLog=True)
         ref.setAutoDraw(True)
         refText = visual.TextStim(win=self.windows[3],height=.15,pos=[0,-2],autoLog=True)
@@ -122,8 +137,8 @@ class Experiment():
             for idx, win in enumerate(self.windows):
                 for stim in self.stimuli:
                     stim.win = self.windows[idx]
-                    stim.wrapWidth = None
-                    print(stim.wrapWidth)
+                    #stim.wrapWidth = None
+                    #print(stim.wrapWidth)
                     stim._needVertexUpdate = True
                     stim._needUpdate = True
                 for idx, stim in enumerate(self.stimuli):
@@ -147,18 +162,19 @@ class Experiment():
             data['nearToFar'] = condition['nearToFar']
             data['diopters'] = condition['diopters']
             # set up stimuli with some randomness
+            self.stimuli[0] = self.primeStim[primeWindow]   # choose the right prime text stimulus
             text, primeValue = self.genLogicPrimer()        # set the text and store the value for the primer
             self.stimuli[0].text = text
-            self.stimuli[0].win = self.windows[primeWindow] # set the primer stimulus window
-            self.stimuli[0].flipHoriz = self.config.monitors[primeWindow].flipHoriz
             data['primeDepth'] = self.config.monitors[primeWindow].currentCalib['distance']
             orientation = random.getrandbits(1)             # set and store the orientation of the grating
             self.stimuli[1].ori = orientation * 90
             data['orientation'] = self.stimuli[1].ori
             data['contrast'] = self.stimuli[1].contrast
             data['frequency'] = self.stimuli[1].sf
-            self.stimuli[1].win = self.windows[mainWindow]  # set the grating and post grating stimulus window
-            self.stimuli[2].win = self.windows[mainWindow]
+            for stim in self.stimuli[1:]:
+                stim.win = self.windows[mainWindow]  # set the grating and post grating stimulus window
+                stim._needVertexUpdate = True        # make sure it recalculates the size
+                stim._needUpdate = True              # make sure it redraws the size
             data['stimDepth'] = self.config.monitors[mainWindow].currentCalib['distance']
             # run the proceedure
             self.presentStimulus(0)
@@ -183,7 +199,6 @@ class Experiment():
                     self.handler.addOtherData(k,v)
             self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
             logging.flush()
-        '''
     def run(self):
         self.proceedure()
     def close(self):

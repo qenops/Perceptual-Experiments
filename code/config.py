@@ -10,6 +10,7 @@ mon_33cm.currentCalib['distance'] = 33.0
 mon_33cm.currentCalib['sizePix'] = [2048, 1536]
 mon_33cm.currentCalib['width'] = 20.0
 mon_33cm.screenPos = (-2560, 1440)
+mon_33cm.center = (0,3.12)  # position of center in units
 #mon_33cm.screen = 2
 mon_33cm.flipHoriz = True
 
@@ -18,6 +19,7 @@ mon_50cm.currentCalib['distance'] = 50.0
 mon_50cm.currentCalib['sizePix'] = [2048, 1536]
 mon_50cm.currentCalib['width'] = 20.0
 mon_50cm.screenPos = (-512, 1440)
+mon_50cm.center = (0,0.24)  # position of center in units
 #mon_50cm.screen = 4
 mon_50cm.flipHoriz = True
 
@@ -26,6 +28,7 @@ mon_100cm.currentCalib['distance'] = 100.0
 mon_100cm.currentCalib['sizePix'] = [2560, 1440]
 mon_100cm.currentCalib['width'] = 64.0
 mon_100cm.screenPos = (1536, 1440)
+mon_100cm.center = (0,.24)  # position of center in units
 #mon_100cm.screen = 5
 mon_100cm.flipHoriz = True
 
@@ -34,6 +37,7 @@ mon_800cm.currentCalib['distance'] = 800.0
 mon_800cm.currentCalib['sizePix'] = [1080, 1920]
 mon_800cm.currentCalib['width'] = 86.5
 mon_800cm.screenPos = (4096, 1440)
+mon_800cm.center = (0,0)  # position of center in units
 #mon_800cm.screen = 3
 mon_800cm.flipHoriz = False
 
