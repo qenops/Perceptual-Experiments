@@ -61,7 +61,7 @@ joyID = 0
 ### data parameters ###
 dataPath = './data'
 userFile = 'users.psydat'
-stairFile = 'stair.csv'
+stairFile = 'stair'
 
 ### assets parameters ###
 assetsPath = './assets'

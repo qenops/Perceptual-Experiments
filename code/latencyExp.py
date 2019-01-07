@@ -202,7 +202,8 @@ class Experiment():
     def run(self):
         self.proceedure()
     def close(self):
-        self.handler.saveAsExcel(os.path.join(config.dataPath,config.stairFile))
+        self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s'%(config.stairFile,self.userInfo['ID'])))
+        self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s.xlsx'%(config.stairFile,self.userInfo['ID'])))
         self.dataFile.close()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
@@ -224,6 +225,7 @@ class Experiment():
         allKeys = event.getKeys()
         for key in allKeys:
             if key == 'escape':
+                self.close()
                 core.quit()
         event.clearEvents()
     def waitFrames(self,value):
