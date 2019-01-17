@@ -20,7 +20,7 @@ if not files:
 #plot each staircase
 fig = Figure()
 canvas = FigureCanvas(fig)
-ax = fig.add_subplot(121)
+ax = fig.add_subplot(111)
 colors = 'brgkcmbrgkcm'
 lines, names = [],[]
 #get the data from all the files
@@ -30,7 +30,7 @@ for thisFileName in files:
         for handler in thisDat.staircases:
             ax.plot(handler.intensities, label=handler.condition['label'])
             ax.plot(handler.data)
-'''
+            '''
             combinedInten, combinedResp, combinedN = \
              data.functionFromStaircase(handler.intensities, handler.data, 10)
             #fit curve - in this case using a Weibull function
@@ -50,6 +50,5 @@ for thisFileName in files:
             pylab.plot(combinedInten, combinedResp, 'o')
             pylab.ylim([0,1])
             '''
-            
-ax.legend()
-canvas.print_figure
+        ax.legend()
+        canvas.print_figure(os.path.splitext(os.path.basename(thisFileName))[0])

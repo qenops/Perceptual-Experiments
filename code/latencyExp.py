@@ -91,7 +91,7 @@ class Experiment():
     def setupData(self):
         self.dataKeys = ['primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','orientation','contrast','frequency','requestedLatency','actualLatency','responseTime','correct']
         # make a text file to save data
-        fileName = 'data_%s_%s'%(self.userInfo['ID'],self.userInfo['Date'])
+        fileName = '%s_data_%s'%(self.userInfo['ID'],self.userInfo['Date'])
         self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%fileName), 'w')  # a simple text file with 'comma-separated-values'
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupStimuli(self):
@@ -122,6 +122,7 @@ class Experiment():
             {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
             {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
         ]
+        #self.handler = data.MultiStairHandler(stairType='quest',conditions=conditions)
         self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
     def proceedure(self):
         '''The proceedure of the experiment'''
@@ -145,7 +146,6 @@ class Experiment():
                     self.presentStimulus(idx)
                     self.waitTime(60*SPF)
                     self.clearStimuli()
-
         '''
         for frames, condition in self.handler:
             primed = False
@@ -202,8 +202,8 @@ class Experiment():
     def run(self):
         self.proceedure()
     def close(self):
-        self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s'%(config.stairFile,self.userInfo['ID'])))
-        self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s.xlsx'%(config.stairFile,self.userInfo['ID'])))
+        self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s'%(self.userInfo['ID'],config.stairFile)))
+        self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],config.stairFile)))
         self.dataFile.close()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
