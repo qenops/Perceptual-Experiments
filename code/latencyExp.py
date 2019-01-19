@@ -33,18 +33,20 @@ BACKEND = 'pyglet'
 SPF = .016          # seconds per frame
 
 class Experiment():
-    def __init__(self, config=config):
+    def __init__(self, config=config, storeData=True):
         self.config = config
+        self.storeData = storeData
         self.setupLogging()
         self.clock = core.Clock()
         self.timer = core.Clock()
         self.setupWindows()
         self.setupJoystick()
-        self.getUser()
-        self.dataKeys = None
-        self.data = None
-        self.dataFile = None
-        self.setupData()
+        if self.storeData:
+            self.getUser()
+            self.dataKeys = None
+            self.data = None
+            self.dataFile = None
+            self.setupData()
         self.setupStimuli()
         self.setupHandler()
     def setupLogging(self):
@@ -197,14 +199,17 @@ class Experiment():
                 self.handler.addResponse(data['correct'])
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
-            self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
+            if self.storeData:
+                self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
+            # TODO print update on number of trials completed - out of how many? Does the handler know that? probably not
             logging.flush()
     def run(self):
         self.proceedure()
     def close(self):
-        self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s'%(self.userInfo['ID'],config.stairFile)))
-        self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],config.stairFile)))
-        self.dataFile.close()
+        if self.storeData:
+            self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s'%(self.userInfo['ID'],config.stairFile)))
+            #self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],config.stairFile)))
+            self.dataFile.close()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
         self.stimuli[idx].setAutoDraw(True)

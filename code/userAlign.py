@@ -6,15 +6,21 @@ import config
 class AlignExperiment(Experiment):
     def setupStimuli(self):
         self.current = 0
+        self.wait = True
         allStim = []
+        self.horizStim = []
+        self.rightStim = []
+        self.leftStim = []
         for win in self.windows:
-            #textStim = visual.TextStim(win=win,height=.15,pos=[0,0],autoLog=True, flipHoriz=win.flipHoriz)
-            #textStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
-            #textStim.font = os.path.splitext(self.config.stimulusFont)[0]
-            #textStim.text = 'O'
-            #allStim.append(textStim)
-            stim = visual.Line(win=win, start=(-10,0), end=(10,0))
-            allStim.append(stim)
+            horiz = visual.Line(win=win, start=(-10,0), end=(10,0))
+            self.horizStim.append(horiz)
+            allStim.append(horiz)
+            vertR = visual.Line(win=win, units='cm', start=(-3,-100), end=(-3,100))
+            vertL = visual.Line(win=win, units='cm', start=(3,-100), end=(3,100))
+            self.rightStim.append(vertR)
+            self.leftStim.append(vertL)
+            allStim.append(vertR)
+            allStim.append(vertL)
         indicatorStim = visual.TextStim(win=win,height=.3,pos=[-3,3],autoLog=True, flipHoriz=win.flipHoriz)
         indicatorStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         indicatorStim.font = os.path.splitext(self.config.stimulusFont)[0]
@@ -24,9 +30,21 @@ class AlignExperiment(Experiment):
         self.stimuliTime = [0] * len(self.stimuli)
     def proceedure(self):
         '''The proceedure of the experiment'''
-        for idx in range(len(self.stimuli)):
-            self.presentStimulus(idx)
-        while(True):
+        for stim in self.horizStim:
+            self.presentStimulus(self.stimuli.index(stim))
+        while(self.wait):
+            self.flip()
+        self.wait=True
+        self.clearStimuli()
+        for stim in self.leftStim:
+            self.presentStimulus(self.stimuli.index(stim))
+        while(self.wait):
+            self.flip()
+        self.wait=True
+        self.clearStimuli()
+        for stim in self.rightStim:
+            self.presentStimulus(self.stimuli.index(stim))
+        while(self.wait):
             self.flip()
     def changeState(self):
         if self.joyButs[0]:
@@ -53,6 +71,9 @@ class AlignExperiment(Experiment):
         for key in allKeys:
             if key == 'escape':
                 core.quit()
+            if key == 'return':
+                print('continuing...')
+                self.wait = False
         if self.joyStateChanged():
             self.changeState()
         event.clearEvents()
@@ -60,6 +81,6 @@ class AlignExperiment(Experiment):
 
 
 if __name__ == '__main__':
-    experiment = AlignExperiment(config)
+    experiment = AlignExperiment(config, False)
     experiment.run()
     experiment.close()

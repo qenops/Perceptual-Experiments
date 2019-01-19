@@ -60,6 +60,6 @@ class AlignExperiment(Experiment):
 
 
 if __name__ == '__main__':
-    experiment = AlignExperiment(config)
+    experiment = AlignExperiment(config, False)
     experiment.run()
     experiment.close()
