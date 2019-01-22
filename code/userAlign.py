@@ -5,8 +5,9 @@ import config
 
 class AlignExperiment(Experiment):
     def setupStimuli(self):
-        self.current = 0
+        self.curState = 0
         self.wait = True
+        self.done = False
         allStim = []
         self.horizStim = []
         self.rightStim = []
@@ -15,55 +16,45 @@ class AlignExperiment(Experiment):
             horiz = visual.Line(win=win, start=(-10,0), end=(10,0))
             self.horizStim.append(horiz)
             allStim.append(horiz)
-            vertR = visual.Line(win=win, units='cm', start=(-3,-100), end=(-3,100))
-            vertL = visual.Line(win=win, units='cm', start=(3,-100), end=(3,100))
+            sign = -1 if win.flipHoriz else 1
+            vertR = visual.Line(win=win, units='cm', start=(3*sign,-100), end=(3*sign,100))
+            vertL = visual.Line(win=win, units='cm', start=(3*sign*-1,-100), end=(3*sign*-1,100))
+            vertR.sign = sign
+            vertL.sign = sign
             self.rightStim.append(vertR)
             self.leftStim.append(vertL)
             allStim.append(vertR)
             allStim.append(vertL)
-        indicatorStim = visual.TextStim(win=win,height=.3,pos=[-3,3],autoLog=True, flipHoriz=win.flipHoriz)
-        indicatorStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
-        indicatorStim.font = os.path.splitext(self.config.stimulusFont)[0]
-        indicatorStim.text = '%s'%self.current
-        allStim.append(indicatorStim)
         self.stimuli = allStim
         self.stimuliTime = [0] * len(self.stimuli)
+        self.states = [self.horizStim, self.leftStim, self.rightStim, self.leftStim + self.rightStim]
     def proceedure(self):
         '''The proceedure of the experiment'''
-        for stim in self.horizStim:
-            self.presentStimulus(self.stimuli.index(stim))
-        while(self.wait):
-            self.flip()
-        self.wait=True
-        self.clearStimuli()
-        for stim in self.leftStim:
-            self.presentStimulus(self.stimuli.index(stim))
-        while(self.wait):
-            self.flip()
-        self.wait=True
-        self.clearStimuli()
-        for stim in self.rightStim:
-            self.presentStimulus(self.stimuli.index(stim))
-        while(self.wait):
-            self.flip()
+        while not self.done:
+            for stim in self.states[self.curState]:
+                self.presentStimulus(self.stimuli.index(stim))
+            while(self.wait):
+                self.flip()
+            self.wait=True
+            self.clearStimuli()
     def changeState(self):
         if self.joyButs[0]:
-            self.current += 1
-            #print(self.current)
+            print('continuing...')
+            self.curState = (self.curState + 1) % len(self.states)
+            self.wait = False
         if self.joyButs[1]:
-            self.current -= 1
-            #print(self.current)
-        self.current %= len(self.windows)
-        self.stimuli[-1].text = '%s'%self.current
+            print('continuing...')
+            self.curState = (self.curState - 1) % len(self.states)
+            self.wait = False
         if self.joyHats != [0,0]:
-            v = np.array(self.windows[self.current].viewPos)
-            v += np.array(self.joyHats[0])/25
-            self.windows[self.current].viewPos = v
-            self.stimuli[self.current]._needVertexUpdate = True
-            self.stimuli[self.current]._needUpdate = True
-            for win in self.windows:
-                print(win.viewPos, end=", ")
-            print('\n')
+            for stim in self.rightStim:
+                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 20, stim.start[1])
+                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 20, stim.end[1])
+            print(stim.start[0],end=', ')
+            for stim in self.leftStim:
+                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -20, stim.start[1])
+                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -20, stim.end[1])
+            print(stim.start[0])
     def flip(self):
         for window in self.activeWindows:
             window.flip()
@@ -73,6 +64,7 @@ class AlignExperiment(Experiment):
                 core.quit()
             if key == 'return':
                 print('continuing...')
+                self.curState = (self.curState + 1) % len(self.states)
                 self.wait = False
         if self.joyStateChanged():
             self.changeState()
