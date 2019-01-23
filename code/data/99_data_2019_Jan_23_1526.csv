@@ -1,0 +1,2 @@
+primeCorrect,primeTime,primeDepth,stimDepth,diopters,nearToFar,orientation,contrast,frequency,requestedLatency,actualLatency,responseTime,correct
+True,9.301869900082238,800.0,800.0,0,True,0,1.0,[20. 20.],0.96,0.9650856000371277,1.000392199959606,True

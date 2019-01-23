@@ -26,9 +26,9 @@ mon_50cm.flipHoriz = True
 mon_100cm = psychopy.monitors.calibTools.Monitor(name="100cm")
 mon_100cm.currentCalib['distance'] = 100.0
 mon_100cm.currentCalib['sizePix'] = [2560, 1440]
-mon_100cm.currentCalib['width'] = 64.0
+mon_100cm.currentCalib['width'] = 70.8
 mon_100cm.screenPos = (1536, 1440)
-mon_100cm.center = (0,.24)  # position of center in units
+mon_100cm.center = (-.66,6.24)  # position of center in units
 #mon_100cm.screen = 5
 mon_100cm.flipHoriz = True
 
