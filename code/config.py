@@ -13,6 +13,7 @@ mon_33cm.screenPos = (-2560, 1440)
 mon_33cm.center = (0,3.12)  # position of center in units
 #mon_33cm.screen = 2
 mon_33cm.flipHoriz = True
+mon_33cm.color = [-1,-1,-1]
 
 mon_50cm = psychopy.monitors.calibTools.Monitor(name="50cm")
 mon_50cm.currentCalib['distance'] = 50.0
@@ -22,6 +23,7 @@ mon_50cm.screenPos = (-512, 1440)
 mon_50cm.center = (0,0.24)  # position of center in units
 #mon_50cm.screen = 4
 mon_50cm.flipHoriz = True
+mon_50cm.color = [-1,-1,-1]
 
 mon_100cm = psychopy.monitors.calibTools.Monitor(name="100cm")
 mon_100cm.currentCalib['distance'] = 100.0
@@ -31,6 +33,7 @@ mon_100cm.screenPos = (1536, 1440)
 mon_100cm.center = (-.66,6.24)  # position of center in units
 #mon_100cm.screen = 5
 mon_100cm.flipHoriz = True
+mon_100cm.color = [-1,-1,-1]
 
 mon_800cm = psychopy.monitors.calibTools.Monitor(name="800cm")
 mon_800cm.currentCalib['distance'] = 800.0
@@ -40,6 +43,7 @@ mon_800cm.screenPos = (4096, 1440)
 mon_800cm.center = (0,0)  # position of center in units
 #mon_800cm.screen = 3
 mon_800cm.flipHoriz = False
+mon_800cm.color = [-1,-1,-1]
 
 monitors=[mon_33cm,mon_50cm,mon_100cm,mon_800cm]
 #monitors=[mon_33cm,mon_50cm]

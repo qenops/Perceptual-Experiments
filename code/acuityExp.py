@@ -1,9 +1,11 @@
-from latencyExp import Experiment, visual, event, core, data
+from experiment import Experiment, visual, event, core, data
 import numpy as np
 import os, random
 import config
 
 class AcuityExperiment(Experiment):
+    def setupData(self):
+        pass
     def setupStimuli(self):
         # create the 4 stimuli
         self.stimuli = []
@@ -11,7 +13,7 @@ class AcuityExperiment(Experiment):
         self.chars = ['{','|','}','~'] # L, D, R, U (in font)
         self.responses = [[-1,0],[0,-1],[1,0],[0,1]] # L, D, R, U (on joystick hat)
         for char in self.chars:
-            textStim = visual.TextStim(win=win,height=25/60,units='deg',pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz)
+            textStim = visual.TextStim(win=win,height=25/60,color=-1,units='deg',pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz)
             textStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
             textStim.font = os.path.splitext(self.config.stimulusFont)[0]
             textStim.text = char
@@ -19,7 +21,7 @@ class AcuityExperiment(Experiment):
         self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
         # create the staircase handler
-        self.handler = data.StairHandler(startVal = 60, minVal=0,
+        self.handler = data.StairHandler(startVal = 25, minVal=1, maxVal=150,
                                 stepType = 'db', stepSizes=[10,5,2.5,2.5,1.25,1.25],
                                 nUp=1, nDown=3,  # will home in on the 80% threshold
                                 nTrials=10)
@@ -38,12 +40,9 @@ class AcuityExperiment(Experiment):
             print('Trial # %s: size = %s'%(count,size))
             self.waitTime(1)
         self.acuity = size*4
-        
-
-
-
 
 if __name__ == '__main__':
+    config.mon_800cm.color = [1,1,1]
     experiment = AcuityExperiment(config, False)
     experiment.run()
     print('Acuity is: 20/%s'%experiment.acuity)

@@ -1,9 +1,11 @@
-from latencyExp import Experiment, visual, event, core
+from experiment import Experiment, visual, event, core
 import numpy as np
 import os
 import config
 
 class AlignExperiment(Experiment):
+    def setupData(self):
+        pass
     def setupStimuli(self):
         self.current = 0
         allStim = []

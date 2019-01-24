@@ -1,9 +1,11 @@
-from latencyExp import Experiment, visual, event, core
+from experiment import Experiment, visual, event, core
 import numpy as np
 import os
 import config
 
 class AlignExperiment(Experiment):
+    def setupData(self):
+        pass
     def setupStimuli(self):
         self.curState = 0
         self.wait = True
@@ -37,6 +39,7 @@ class AlignExperiment(Experiment):
                 self.flip()
             self.wait=True
             self.clearStimuli()
+        self.ipd = abs(self.rightStim[0].start[0]) + abs(self.leftStim[0].start[0])
     def changeState(self):
         if self.joyButs[0]:
             print('continuing...')
@@ -46,14 +49,18 @@ class AlignExperiment(Experiment):
             print('continuing...')
             self.curState = (self.curState - 1) % len(self.states)
             self.wait = False
+        if self.joyButs[7]:
+            print('quitting...')
+            self.done = True
+            self.wait = False
         if self.joyHats != [0,0]:
             for stim in self.rightStim:
-                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 20, stim.start[1])
-                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 20, stim.end[1])
+                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 40, stim.start[1])
+                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 40, stim.end[1])
             print(stim.start[0],end=', ')
             for stim in self.leftStim:
-                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -20, stim.start[1])
-                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -20, stim.end[1])
+                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -40, stim.start[1])
+                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -40, stim.end[1])
             print(stim.start[0])
     def flip(self):
         for window in self.activeWindows:
@@ -75,4 +82,5 @@ class AlignExperiment(Experiment):
 if __name__ == '__main__':
     experiment = AlignExperiment(config, False)
     experiment.run()
+    print('IPD is: %s'%experiment.ipd)
     experiment.close()
