@@ -9,12 +9,12 @@ www.qenops.com
 __author__ = ('David Dunn')
 __version__ = '1.0'
 
-from experiment import Experiment, visual, event, core, data
+from experiment import Experiment, visual, event, core, data, SPF, logging
 from userAlign import AlignExperiment
 from acuityExp import AcuityExperiment
 
 import numpy as np
-import random
+import random, os
 
 import config
 
@@ -32,7 +32,9 @@ import config
 
 class LatencyExperiment(Experiment):
     def setupData(self):
-        self.dataKeys = ['primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','orientation','contrast','frequency','requestedLatency','actualLatency','responseTime','correct']
+        self.dataKeys = ['trial','primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','orientation','contrast','frequency','intensity','requestedLatency','actualLatency','responseTime','correct']
+        extra = ['caseLabel','caseTrial','trialsAtStep','stepCorrect','expected', 'w', 'direction', 'stepsize', 'stepChange']
+        self.dataKeys.extend(extra)
         # make a text file to save data
         fileName = '%s_data_%s'%(self.userInfo['ID'],self.userInfo['Date'])
         self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%fileName), 'w')  # a simple text file with 'comma-separated-values'
@@ -50,17 +52,29 @@ class LatencyExperiment(Experiment):
         self.stimuli = [textStim, grating, postGrating]
         self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
-        conditions=[
-            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
-            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal': 60, 'minVal':0, 'stepType':'lin', 'stepSizes':[8,4,2,1,1],'nUp':1,'nDown':3},
+        '''conditions=[
+            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
+            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
         ]
         self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
+        '''
+        conditions = [
+            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal':60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+        ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
+    def run(self):
+        self.proceedure()
     def proceedure(self):
         '''The proceedure of the experiment'''
         '''
@@ -84,11 +98,13 @@ class LatencyExperiment(Experiment):
                     self.waitTime(60*SPF)
                     self.clearStimuli()
         '''
-        count = 0
+        self.count = 0
         for frames, condition in self.handler:
             primed = False
             #while not primed:
             data = {}
+            data['trial'] = self.count + 1
+            data['intensity'] = frames
             data['requestedLatency'] = frames * SPF
             # set up windows according to this handler
             i = list(range(len(self.windows)))
@@ -130,16 +146,35 @@ class LatencyExperiment(Experiment):
             # record the results
             data['primeCorrect'] = resp1 == primeValue
             data['correct'] = resp2 == orientation
+            # extra results
+            data.update({'caseLabel':condition['label'],
+                'stepCorrect': sum(self.handler.currentStaircase.data[self.handler.currentStaircase.stepChangeidx:]) + data['correct'],
+                'w': self.handler.currentStaircase.pest_w,
+                'direction': self.handler.currentStaircase.currentDirection, 
+                'stepsize': self.handler.currentStaircase.stepSizes[self.handler.currentStaircase.currentStepSizeIdx], 
+            })
+            data['caseTrial'] = len(self.handler.currentStaircase.data) + 1
+            data['trialsAtStep'] = data['caseTrial'] - self.handler.currentStaircase.stepChangeidx
+            data['expected'] = data['trialsAtStep'] * self.handler.currentStaircase.targetProb
+            data['stepChange'] = int(self.handler.currentStaircase.currentLevelTrialCount / self.handler.currentStaircase.findlay_m)
             if data['primeCorrect']:  # prime was correct - this one counted
                 #primed = True
                 self.handler.addResponse(data['correct'])
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
+                # add an inital rule for vPest
+                if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
+                    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
+                    self.handler.currentStaircase._intensityDec()
+                    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
+                    #self.handler.currentStaircase.calculateNextIntensity()
+            else:
+                self.handler.currentStaircase.intensities.pop()
             if self.storeData:
                 self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
             # TODO print update on number of trials completed - out of how many? Does the handler know that? probably not
-            count += 1
-            print('Trial # %s: Expr = %s'%(count,condition['label']))
+            self.count += 1
+            print('Trial # %s:\tFrames = %s\tExpr = %s'%(self.count,frames,condition['label']))
             logging.flush()
     @staticmethod
     def genLogicPrimer():
@@ -154,15 +189,16 @@ class LatencyExperiment(Experiment):
         return "%d+%d=%d"%(first, second, sum), TF
 
 if __name__ == '__main__':
-    alignExp = AlignExperiment(config,False)
+    '''
+    alignExp = AlignExperiment(config, storeData=False)
     alignExp.run()
-    alignExp.close()
-    config.mon_800cm.color = [1,1,1]
-    acuity = AcuityExperiment(config, False)
+    alignExp.close(False)
+    acuity = AcuityExperiment(config, storeData=False, windows=alignExp.windows, joy=alignExp.joy)
     acuity.run()
-    acuity.close()
-    config.mon_800cm.color = [-1,-1,-1]
-    #experiment = Experiment(config, True, ipd=alignExp.ipd, acuity=acuity.acuity)
-    experiment = Experiment(config, False, ipd=alignExp.ipd, acuity=acuity.acuity)
+    acuity.close(False)
+    '''
+    experiment = LatencyExperiment(config)
+    #experiment = LatencyExperiment(config, storeData=True, windows=acuity.windows, joy=acuity.joy, ipd=alignExp.ipd, acuity=acuity.acuity)
+    #experiment = LatencyExperiment(config, storeData=False, windows=acuity.windows, joy=acuity.joy, ipd=alignExp.ipd, acuity=acuity.acuity)
     experiment.run()
     experiment.close()

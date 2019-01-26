@@ -1,10 +1,10 @@
 
-from latencyExp import Experiment, visual, event, core, data, logging, SPF
+from latencyExp import LatencyExperiment, visual, event, core, data, logging, SPF
 import numpy as np
 import os, random, math
 import config
 
-class DiopterExperiment(Experiment):
+class DiopterExperiment(LatencyExperiment):
     def setupHandler(self):
         '''
         conditions=[
@@ -35,15 +35,23 @@ class DiopterExperiment(Experiment):
         self.handler = data.ExtendedMultiStairHandler(stairType='pest',conditions=conditions)
         '''
         conditions=[
-            {'label':'1_diopter_1-2', 'prime':1, 'stim':2, 'startVal':25, 'stepSizes':[8,4,2,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'1_diopter_1-2', 'prime':1, 'stim':2, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'1_diopter_2-3', 'prime':2, 'stim':3, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'1_diopter_2-1', 'prime':2, 'stim':1, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'1_diopter_1-0', 'prime':1, 'stim':0, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'2_diopter_1-3', 'prime':1, 'stim':3, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'2_diopter_2-0', 'prime':2, 'stim':0, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':1, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
         ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
     def proceedure(self):
         '''The proceedure of the experiment'''
+        self.count = 0
         for frames, condition in self.handler:
             primed = False
             #while not primed:
             data = {}
+            data['trial'] = self.count + 1
+            data['intensity'] = frames
             data['requestedLatency'] = frames * SPF
             # set up windows according to this handler
             i = list(range(len(self.windows)))
@@ -66,6 +74,7 @@ class DiopterExperiment(Experiment):
                 stim._needVertexUpdate = True        # make sure it recalculates the size
                 stim._needUpdate = True              # make sure it redraws the size
             data['stimDepth'] = self.config.monitors[mainWindow].currentCalib['distance']
+            #print(primeValue, orientation)
             # run the proceedure
             self.presentStimulus(0)
             resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
@@ -82,17 +91,35 @@ class DiopterExperiment(Experiment):
             # record the results
             data['primeCorrect'] = resp1 == primeValue
             data['correct'] = resp2 == orientation
+            # extra results
+            data.update({'caseLabel':condition['label'],
+                'stepCorrect': sum(self.handler.currentStaircase.data[self.handler.currentStaircase.stepChangeidx:]) + data['correct'],
+                'w': self.handler.currentStaircase.pest_w,
+                'direction': self.handler.currentStaircase.currentDirection, 
+                'stepsize': self.handler.currentStaircase.stepSizes[self.handler.currentStaircase.currentStepSizeIdx], 
+            })
+            data['caseTrial'] = len(self.handler.currentStaircase.data) + 1
+            data['trialsAtStep'] = data['caseTrial'] - self.handler.currentStaircase.stepChangeidx
+            data['expected'] = data['trialsAtStep'] * self.handler.currentStaircase.targetProb
+            data['stepChange'] = int(self.handler.currentStaircase.currentLevelTrialCount / self.handler.currentStaircase.findlay_m)
             if data['primeCorrect']:  # prime was correct - this one counted
                 #primed = True
                 self.handler.addResponse(data['correct'])
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
-            self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
+                if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
+                    # add an inital rule for vPest
+                    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
+                    self.handler.currentStaircase._intensityDec()
+                    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
+                    #self.handler.currentStaircase.calculateNextIntensity()
+            else:
+                self.handler.currentStaircase.intensities.pop()
+            if self.storeData:
+                self.dataFile.write('%s\n'%','.join(['%s'%data[i] for i in self.dataKeys]))
+            self.count += 1
+            print('Trial # %s:\tFrames = %s\tExpr = %s'%(self.count,frames,condition['label']))
             logging.flush()
-    def close(self):
-        self.handler.saveAsPickle(os.path.join(config.dataPath,'%s_%s_diopter'%(self.userInfo['ID'],config.stairFile)))
-        self.handler.saveAsExcel(os.path.join(config.dataPath,'%s_%s_diopter.xlsx'%(self.userInfo['ID'],config.stairFile)))
-        self.dataFile.close()
 
 
 if __name__ == '__main__':

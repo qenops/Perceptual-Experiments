@@ -7,6 +7,7 @@ class AcuityExperiment(Experiment):
     def setupData(self):
         pass
     def setupStimuli(self):
+        self.windows[-1].color = [1,1,1]
         # create the 4 stimuli
         self.stimuli = []
         win = self.windows[-1]
@@ -40,6 +41,13 @@ class AcuityExperiment(Experiment):
             print('Trial # %s: size = %s'%(count,size))
             self.waitTime(1)
         self.acuity = size*4
+    def close(self, ui=True):
+        if not ui:
+            self.windows[-1].color = [-1,-1,-1]
+            #self.windows[-1].flip()
+            self.presentStimulus(0)
+            self.clearStimuli()
+        super().close(ui)
 
 if __name__ == '__main__':
     config.mon_800cm.color = [1,1,1]

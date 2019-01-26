@@ -23,13 +23,13 @@ BACKEND = 'pyglet'
 SPF = .016          # seconds per frame
 
 class Experiment(ABC):
-    def __init__(self, config, storeData=True, joystick=True, acuity=None, ipd=None):
+    def __init__(self, config, storeData=True, windows=None, joystick=True, joy=None, acuity=None, ipd=None):
         self.config = config
         self.storeData = storeData
         self.setupLogging()
         self.clock = core.Clock()
         self.timer = core.Clock()
-        self.setupWindows()
+        self.setupWindows(windows)
         if joystick:
             self.setupJoystick(joy)
         if self.storeData:
@@ -43,19 +43,25 @@ class Experiment(ABC):
     def setupLogging(self):
         logging.console.setLevel(logging.ERROR)
         self.log = logging.LogFile(self.config.logFile, level=self.config.logLevel, filemode='w')
-    def setupWindows(self):
-        #create the windows
-        self.windows = []
+    def setupWindows(self, windows=None):
+        if windows is not None:
+            self.windows = windows
+        else:
+            #create the windows
+            self.windows = [] 
+            for monitor in self.config.monitors:
+                win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", viewPos=monitor.center, color=monitor.color,waitBlanking=False)
+                win.flipHoriz = monitor.flipHoriz
+                self.windows.append(win)
         self.activeWindows = []
-        for monitor in self.config.monitors:
-            win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", viewPos=monitor.center, color=monitor.color,waitBlanking=False)
-            win.flipHoriz = monitor.flipHoriz
-            self.windows.append(win)
-    def setupJoystick(self):
-        joystick.backend = BACKEND
-        if not joystick.getNumJoysticks():  # to check if we have any connected
-            self.joy = None 
-        self.joy = joystick.Joystick(self.config.joyID)  # id must be <= nJoys - 1
+    def setupJoystick(self, joy=None):
+        if joy is not None:
+            self.joy = joy
+        else:
+            joystick.backend = BACKEND
+            if not joystick.getNumJoysticks():  # to check if we have any connected
+                self.joy = None 
+            self.joy = joystick.Joystick(self.config.joyID)  # id must be <= nJoys - 1
         self.joyHats = self.joy.getAllHats()
         self.joyButs = self.joy.getAllButtons().copy()
     def joyStateChanged(self):
@@ -74,9 +80,10 @@ class Experiment(ABC):
         self.userInfo = {'Name':'','Age':20}
         self.userInfo['Date'] = data.getDateStr()  # add the current time
         self.userInfo['ID'] = len(allUsers)
-        self.userInfo['Acuity'] = acuity
-        self.userInfo['IPD'] = ipd
-        labels = {'Acuity':'Acuity: 20/'}
+        self.userInfo['Acuity'] = acuity if acuity is not None else '20'
+        self.userInfo['IPD'] = ipd if ipd is not None else '60'
+        #labels = {'Acuity':'Acuity: \t20/'}
+        labels = {}
         fixed=['Date','ID']
         if acuity is not None:
             fixed.append('Acuity')
@@ -110,13 +117,14 @@ class Experiment(ABC):
         pass
     def run(self):
         self.proceedure()
-    def close(self):
+    def close(self, ui=True):
         if self.storeData:
             self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s'%(self.userInfo['ID'],self.config.stairFile)))
             #self.handler.saveAsExcel(os.path.join(self.config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],self.config.stairFile)))
             self.dataFile.close()
-        for win in self.windows:
-            win.close()
+        if ui:
+            for win in self.windows:
+                win.close()
         # something with joystick?
     def presentStimulus(self,idx):
         #set the stimulus to autodraw

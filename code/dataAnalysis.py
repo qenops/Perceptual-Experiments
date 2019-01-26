@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 #This analysis script takes one or more staircase datafiles as input
 #from a GUI. It then plots the staircases on top of each other on
 #the left and a combined psychometric function from the same data
@@ -29,7 +27,7 @@ for thisFileName in files:
     if isinstance(thisDat, data.staircase.MultiStairHandler):
         for handler in thisDat.staircases:
             ax.plot(handler.intensities, label=handler.condition['label'])
-            ax.plot(handler.data)
+            #ax.plot(handler.data)
             '''
             combinedInten, combinedResp, combinedN = \
              data.functionFromStaircase(handler.intensities, handler.data, 10)
@@ -51,4 +49,4 @@ for thisFileName in files:
             pylab.ylim([0,1])
             '''
         ax.legend()
-        canvas.print_figure(os.path.splitext(os.path.basename(thisFileName))[0])
+        canvas.print_figure(os.path.splitext((thisFileName))[0])
