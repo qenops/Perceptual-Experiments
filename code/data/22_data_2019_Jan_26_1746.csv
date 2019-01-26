@@ -1,0 +1,4 @@
+trial,primeCorrect,primeTime,primeDepth,stimDepth,diopters,nearToFar,orientation,contrast,frequency,intensity,requestedLatency,actualLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange
+1,True,1.9190597999840975,33.0,50.0,1,True,0,1.0,[20. 20.],60,0.96,0.966695399954915,0.3326769999694079,True,near_1,1,1,1,0.75,0.5,start,8,0
+2,True,1.359047999838367,33.0,100.0,2,True,90,1.0,[20. 20.],60,0.96,0.9687810000032187,0.40291760000400245,True,near_2,1,1,1,0.75,0.5,start,8,0
+3,True,2.548224500147626,800.0,100.0,1,False,90,1.0,[20. 20.],60,0.96,0.9653078000992537,0.3249187001492828,True,far_1,1,1,1,0.75,0.5,start,8,0

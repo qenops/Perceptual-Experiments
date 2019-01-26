@@ -23,17 +23,19 @@ BACKEND = 'pyglet'
 SPF = .016          # seconds per frame
 
 class Experiment(ABC):
-    def __init__(self, config, storeData=True, windows=None, joystick=True, joy=None, acuity=None, ipd=None):
+    def __init__(self, config): 
         self.config = config
-        self.storeData = storeData
+        self.storeData = getattr(config,'storeData',True)
         self.setupLogging()
         self.clock = core.Clock()
         self.timer = core.Clock()
-        self.setupWindows(windows)
-        if joystick:
-            self.setupJoystick(joy)
+        self.setupWindows()
+        if getattr(config,'joystick',True):
+            self.setupJoystick()
         if self.storeData:
-            self.getUser(acuity,ipd)
+            self.getUser()
+            if self.userInfo is None:
+                raise AssertionError('User info was not entered')
             self.dataKeys = None
             self.data = None
             self.dataFile = None
@@ -43,10 +45,9 @@ class Experiment(ABC):
     def setupLogging(self):
         logging.console.setLevel(logging.ERROR)
         self.log = logging.LogFile(self.config.logFile, level=self.config.logLevel, filemode='w')
-    def setupWindows(self, windows=None):
-        if windows is not None:
-            self.windows = windows
-        else:
+    def setupWindows(self):
+        self.windows = getattr(self.config,'windows',None)
+        if self.windows is None:
             #create the windows
             self.windows = [] 
             for monitor in self.config.monitors:
@@ -54,10 +55,9 @@ class Experiment(ABC):
                 win.flipHoriz = monitor.flipHoriz
                 self.windows.append(win)
         self.activeWindows = []
-    def setupJoystick(self, joy=None):
-        if joy is not None:
-            self.joy = joy
-        else:
+    def setupJoystick(self):
+        self.joy = getattr(self.config,'joy',None)
+        if self.joy is None:
             joystick.backend = BACKEND
             if not joystick.getNumJoysticks():  # to check if we have any connected
                 self.joy = None 
@@ -72,7 +72,15 @@ class Experiment(ABC):
             self.joyButs = buts.copy()
             return True
         return False
-    def getUser(self, acuity=None, ipd=None):
+    def getUser(self):
+        print("Verify subject's information.")
+        font = "Bookman"
+        height = .5
+        winIdx = 2
+        win = self.windows[winIdx]
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Please wait while we verify your information....')
+        self.present(prompt)
         try:  # load the users file
             allUsers = fromFile(os.path.join(self.config.dataPath,self.config.userFile))
         except:  # if not there then use a default set
@@ -80,14 +88,14 @@ class Experiment(ABC):
         self.userInfo = {'Name':'','Age':20}
         self.userInfo['Date'] = data.getDateStr()  # add the current time
         self.userInfo['ID'] = len(allUsers)
-        self.userInfo['Acuity'] = acuity if acuity is not None else '20'
-        self.userInfo['IPD'] = ipd if ipd is not None else '60'
+        self.userInfo['Acuity'] = getattr(self.config,'acuity',20) #acuity if acuity is not None else '20'
+        self.userInfo['IPD'] = getattr(self.config,'ipd',60) #ipd if ipd is not None else '60'
         #labels = {'Acuity':'Acuity: \t20/'}
         labels = {}
         fixed=['Date','ID']
-        if acuity is not None:
+        if getattr(self.config,'acuity',None) is not None:
             fixed.append('Acuity')
-        if ipd is not None:
+        if getattr(self.config,'ipd',None) is not None:
             fixed.append('IPD')
         order = ['Name','Age','Acuity','IPD','ID','Date']
         # present a dialogue to change params
@@ -97,6 +105,7 @@ class Experiment(ABC):
             toFile(os.path.join(self.config.dataPath,self.config.userFile), allUsers)  # save users to file for next time
         else:
             self.userInfo = None
+        self.clear(prompt)
     @abstractmethod
     def setupData(self):
         pass
@@ -126,12 +135,20 @@ class Experiment(ABC):
             for win in self.windows:
                 win.close()
         # something with joystick?
+    def present(self,stim):
+        #show a stimulus without timing
+        stim.setAutoDraw(True)
+        self.activeWindows.append(stim.win)
+        self.flip()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
         self.stimuli[idx].setAutoDraw(True)
         self.activeWindows.append(self.stimuli[idx].win)
         self.flip()
         self.stimuliTime[idx] = self.clock.getTime()
+    def clear(self,stim):
+        stim.setAutoDraw(False)
+        self.flip()
     def clearStimuli(self):
         for stim in self.stimuli:
             stim.setAutoDraw(False)

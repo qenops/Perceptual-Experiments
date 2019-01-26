@@ -19,6 +19,13 @@ class AcuityExperiment(Experiment):
             textStim.font = os.path.splitext(self.config.stimulusFont)[0]
             textStim.text = char
             self.stimuli.append(textStim)
+        # set up text prompts:
+        self.prompt = len(self.stimuli)
+        font = "Bookman"
+        height = .5
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,3)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',color=[-1,-1,-1],
+            text='Use the d-pad to indicate\nthe direction of the gap.\nIf the C shrinks too small\nfor you to see, just guess.')
+        self.stimuli.append(prompt)
         self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
         # create the staircase handler
@@ -31,7 +38,8 @@ class AcuityExperiment(Experiment):
         '''The proceedure of the experiment'''
         count = 0
         for size in self.handler:
-            current = random.randint(0,len(self.stimuli)-1)
+            self.presentStimulus(self.prompt)
+            current = random.randint(0,len(self.stimuli)-2)
             self.stimuli[current].height = size/60
             self.presentStimulus(current)
             correct = self.waitForResponse(self.joy.getAllHats,[0],true=[self.responses[current]],false=[i for i in self.responses if i != self.responses[current]])
@@ -50,8 +58,8 @@ class AcuityExperiment(Experiment):
         super().close(ui)
 
 if __name__ == '__main__':
-    config.mon_800cm.color = [1,1,1]
-    experiment = AcuityExperiment(config, False)
+    config.storeData = False
+    experiment = AcuityExperiment(config)
     experiment.run()
     print('Acuity is: 20/%s'%experiment.acuity)
     experiment.close()

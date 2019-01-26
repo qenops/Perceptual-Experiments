@@ -27,9 +27,28 @@ class AlignExperiment(Experiment):
             self.leftStim.append(vertL)
             allStim.append(vertR)
             allStim.append(vertL)
+        # set up text prompts:
+        font = "Bookman"
+        height = .5
+        win = self.windows[2]
+        promptHoriz = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,3)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Raise/lower chinrest until lines align.\nPress "A" button to continue...')
+        self.horizStim.append(promptHoriz)
+        allStim.append(promptHoriz)
+        promptLeft = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((4,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='right',
+            text='Close right eye.\nPress up/down on the d-pad until lines align.\nPress "A" button to continue...')
+        self.leftStim.append(promptLeft)
+        allStim.append(promptLeft)
+        promptRight = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((-4,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='left',
+            text='Close left eye.\nPress up/down on the d-pad until lines align.\nPress "A" button to continue...and "B" button to go back.')
+        self.rightStim.append(promptRight)
+        allStim.append(promptRight)
+        promptEnd = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((4.5,3)),flipHoriz=win.flipHoriz,font=font,alignHoriz='right',
+            text='Without moving your head,\nmake sure both eyes are aligned.\nPress "Start" when done.')
+        allStim.append(promptEnd)
         self.stimuli = allStim
         self.stimuliTime = [0] * len(self.stimuli)
-        self.states = [self.horizStim, self.leftStim, self.rightStim, self.leftStim + self.rightStim]
+        self.states = [self.horizStim, self.leftStim, self.rightStim, self.leftStim + self.rightStim + [promptEnd]]
     def proceedure(self):
         '''The proceedure of the experiment'''
         while not self.done:
@@ -53,15 +72,17 @@ class AlignExperiment(Experiment):
             print('quitting...')
             self.done = True
             self.wait = False
-        if self.joyHats != [0,0]:
+        if self.joyHats != [[0,0]]:
             for stim in self.rightStim:
-                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 40, stim.start[1])
-                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 40, stim.end[1])
-            print(stim.start[0],end=', ')
+                if isinstance(stim,visual.Line):
+                    stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 40, stim.start[1])
+                    stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 40, stim.end[1])
+            print(self.rightStim[0].start[0],end=', ')
             for stim in self.leftStim:
-                stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -40, stim.start[1])
-                stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -40, stim.end[1])
-            print(stim.start[0])
+                if isinstance(stim,visual.Line):
+                    stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -40, stim.start[1])
+                    stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -40, stim.end[1])
+            print(self.leftStim[0].start[0])
     def flip(self):
         for window in self.activeWindows:
             window.flip()
@@ -80,7 +101,8 @@ class AlignExperiment(Experiment):
 
 
 if __name__ == '__main__':
-    experiment = AlignExperiment(config, False)
+    config.storeData = False
+    experiment = AlignExperiment(config)
     experiment.run()
     print('IPD is: %s'%experiment.ipd)
     experiment.close()

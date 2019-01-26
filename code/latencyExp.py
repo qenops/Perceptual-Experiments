@@ -11,7 +11,7 @@ __version__ = '1.0'
 
 from experiment import Experiment, visual, event, core, data, SPF, logging
 from userAlign import AlignExperiment
-from acuityExp import AcuityExperiment
+from userAcuity import AcuityExperiment
 
 import numpy as np
 import random, os
@@ -74,7 +74,117 @@ class LatencyExperiment(Experiment):
         ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
     def run(self):
+        self.tutorial()
         self.proceedure()
+    def tutorial(self):
+        # set up instructions
+        font = "Bookman"
+        height = .5
+        winIdx = 2
+        win = self.windows[winIdx]
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,3)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='You will see a simple True/False math equation.\nPress "A" if it is True and "B" if it is False.')
+        prime = self.primeStim[winIdx]
+        right = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Correct.')
+        wrong = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Wrong, try again.')
+        print("Running Tutorial part 1.")
+        correct = False
+        while not correct:
+            self.present(prompt)
+            text, primeValue = self.genLogicPrimer()
+            prime.text = text
+            self.present(prime)
+            resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
+            self.clear(prime)
+            self.clear(prompt)
+            if resp1 == primeValue:
+                self.present(right)
+                correct = True
+            else:
+                self.present(wrong)
+            self.waitTime(3)
+            self.clear(right)
+            self.clear(wrong)
+        winIdx = 1
+        win = self.windows[winIdx]
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,3)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='A black and white pattern will appear for a brief period,\nmost likely on a different display. It will then fade to gray.\nUse the d-pad to indicate the direction of the lines.\n                           (up/down or left/right)')
+        print("Running Tutorial part 2.")
+        correct = False
+        while not correct:
+            self.present(prompt)
+            orientation = random.getrandbits(1)             # set and store the orientation of the grating
+            self.stimuli[1].ori = orientation * 90
+            for stim in self.stimuli[1:]:
+                stim.win = win                       # set the grating and post grating stimulus window
+                stim._needVertexUpdate = True        # make sure it recalculates the size
+                stim._needUpdate = True              # make sure it redraws the size
+            self.presentStimulus(1)
+            resp2 = self.waitForResponse(self.joy.getAllHats,[0],true=[[1,0],[-1,0]],false=[[0,1],[0,-1]])
+            self.clear(prompt)
+            self.clearStimuli()
+            if resp2 == orientation:
+                self.present(right)
+                correct = True
+            else:
+                self.present(wrong)
+            self.waitTime(3)
+            self.clear(right)
+            self.clear(wrong)
+        self.waitTime(1)
+        print("Running practice.")
+        winIdx = 2
+        win = self.windows[winIdx]
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Try a couple practice rounds....')
+        self.present(prompt)
+        self.waitTime(3)
+        self.clear(prompt)
+        correct = 0
+        sequence = [(0,3),(2,2),(2,0),(3,0),(1,3),(1,1)]
+        sequnceIdx = 0
+        while correct < 3:
+            primeIdx, winIdx = sequence[sequnceIdx]
+            win = self.windows[winIdx]
+            text, primeValue = self.genLogicPrimer()
+            prime = self.primeStim[primeIdx]
+            prime.text = text
+            orientation = random.getrandbits(1)             # set and store the orientation of the grating
+            self.stimuli[1].ori = orientation * 90
+            for stim in self.stimuli[1:]:
+                stim.win = win                       # set the grating and post grating stimulus window
+                stim._needVertexUpdate = True        # make sure it recalculates the size
+                stim._needUpdate = True              # make sure it redraws the size
+            self.present(prime)
+            resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
+            self.clear(prime)
+            self.clearStimuli()
+            self.presentStimulus(1)
+            self.waitTime(60*SPF)
+            self.clearStimuli()
+            self.presentStimulus(2)
+            resp2 = self.waitForResponse(self.joy.getAllHats,[0],true=[[1,0],[-1,0]],false=[[0,1],[0,-1]])
+            self.clearStimuli()
+            if resp1 == primeValue and resp2 == orientation:
+                self.present(right)
+                correct += 1
+            else:
+                self.present(wrong)
+            self.waitTime(3)
+            self.clear(right)
+            self.clear(wrong)
+            sequnceIdx = (sequnceIdx + 1) % len(sequence)
+            print("Practice round %s. Number correct: %s"%(sequnceIdx, correct))
+        winIdx = 2
+        win = self.windows[winIdx]
+        prompt = visual.TextStim(win=win,height=height,pos=win.viewPos+np.array((0,0)),flipHoriz=win.flipHoriz,font=font,alignHoriz='center',
+            text='Good job! Now, here we go!')
+        self.present(prompt)
+        self.waitTime(3)
+        self.clear(prompt)
+        self.clearStimuli()
     def proceedure(self):
         '''The proceedure of the experiment'''
         '''
@@ -190,15 +300,19 @@ class LatencyExperiment(Experiment):
 
 if __name__ == '__main__':
     '''
-    alignExp = AlignExperiment(config, storeData=False)
+    config.storeData = False
+    alignExp = AlignExperiment(config)
     alignExp.run()
     alignExp.close(False)
-    acuity = AcuityExperiment(config, storeData=False, windows=alignExp.windows, joy=alignExp.joy)
-    acuity.run()
-    acuity.close(False)
-    '''
+    config.ipd = alignExp.ipd
+    config.windows = alignExp.windows
+    config.joy = alignExp.joy
+    acuityExp = AcuityExperiment(config)
+    acuityExp.run()
+    acuityExp.close(False)
+    config.acuity = acuityExp.acuity
+    #'''
+    config.storeData = True
     experiment = LatencyExperiment(config)
-    #experiment = LatencyExperiment(config, storeData=True, windows=acuity.windows, joy=acuity.joy, ipd=alignExp.ipd, acuity=acuity.acuity)
-    #experiment = LatencyExperiment(config, storeData=False, windows=acuity.windows, joy=acuity.joy, ipd=alignExp.ipd, acuity=acuity.acuity)
     experiment.run()
     experiment.close()
