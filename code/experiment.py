@@ -32,6 +32,7 @@ class Experiment(ABC):
         self.setupWindows()
         if getattr(config,'joystick',True):
             self.setupJoystick()
+        self.newUser = True
         if self.storeData:
             self.getUser()
             if self.userInfo is None:
@@ -72,6 +73,16 @@ class Experiment(ABC):
             self.joyButs = buts.copy()
             return True
         return False
+    @staticmethod
+    def loadUser(path, id):
+        try:
+            allUsers = fromFile(path)
+        except:
+            raise AttributeError('No user file exists')
+        try:
+            return [u for u in allUsers if u['ID'] == id][0]
+        except IndexError:
+            raise AttributeError('No user of that ID exists')
     def getUser(self):
         print("Verify subject's information.")
         font = "Bookman"
@@ -82,26 +93,41 @@ class Experiment(ABC):
             text='Please wait while we verify your information....')
         self.present(prompt)
         try:  # load the users file
+            print('Reading file %s'%os.path.join(self.config.dataPath,self.config.userFile))
             allUsers = fromFile(os.path.join(self.config.dataPath,self.config.userFile))
         except:  # if not there then use a default set
             allUsers = []
-        self.userInfo = {'Name':'','Age':20}
-        self.userInfo['Date'] = data.getDateStr()  # add the current time
-        self.userInfo['ID'] = len(allUsers)
-        self.userInfo['Acuity'] = getattr(self.config,'acuity',20) #acuity if acuity is not None else '20'
-        self.userInfo['IPD'] = getattr(self.config,'ipd',60) #ipd if ipd is not None else '60'
+        # prepare the dialoge
         #labels = {'Acuity':'Acuity: \t20/'}
         labels = {}
-        fixed=['Date','ID']
-        if getattr(self.config,'acuity',None) is not None:
-            fixed.append('Acuity')
-        if getattr(self.config,'ipd',None) is not None:
-            fixed.append('IPD')
         order = ['Name','Age','Acuity','IPD','ID','Date']
+        self.userInfo = getattr(self.config,'userInfo',None)
+        if self.userInfo is None:
+            self.userInfo = {'Name':'','Age':20}
+            self.userInfo['Date'] = [data.getDateStr()]  # add the current time
+            self.userInfo['ID'] = len(allUsers)
+            self.userInfo['Acuity'] = getattr(self.config,'acuity',20) #acuity if acuity is not None else '20'
+            self.userInfo['IPD'] = getattr(self.config,'ipd',60) #ipd if ipd is not None else '60'
+            fixed=['Date','ID']
+            if getattr(self.config,'acuity',None) is not None:
+                fixed.append('Acuity')
+            if getattr(self.config,'ipd',None) is not None:
+                fixed.append('IPD')
+        else:
+            # we have user info - need to update Date with a new trial
+            self.userInfo['Date'].append(data.getDateStr())
+            fixed=order
+            try:
+                user = [u for u in allUsers if u['ID'] == self.userInfo['ID']][0]
+                user['Date'] = self.userInfo['Date']
+                self.newUser = False
+            except IndexError:
+                pass
         # present a dialogue to change params
         dlg = gui.DlgFromDict(self.userInfo, labels=labels, title='User Info', order=order, fixed=fixed)
         if dlg.OK:
-            allUsers.append(self.userInfo)
+            if self.newUser:
+                allUsers.append(self.userInfo)
             toFile(os.path.join(self.config.dataPath,self.config.userFile), allUsers)  # save users to file for next time
         else:
             self.userInfo = None
@@ -128,7 +154,7 @@ class Experiment(ABC):
         self.proceedure()
     def close(self, ui=True):
         if self.storeData:
-            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s'%(self.userInfo['ID'],self.config.stairFile)))
+            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s_%s'%(self.userInfo['ID'],self.config.stairFile,self.userInfo['Date'][-1])))
             #self.handler.saveAsExcel(os.path.join(self.config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],self.config.stairFile)))
             self.dataFile.close()
         if ui:
@@ -192,6 +218,8 @@ class Experiment(ABC):
             self.flip()
             new = function()
             current = np.array([new[i] for i in items])
+        #print(current.flatten().tolist())
+        #print(true, false)
         if true is not None:
             if current.flatten().tolist() in true:
                 return True

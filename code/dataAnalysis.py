@@ -26,7 +26,8 @@ for thisFileName in files:
     thisDat = fromFile(thisFileName)
     if isinstance(thisDat, data.staircase.MultiStairHandler):
         for handler in thisDat.staircases:
-            ax.plot(handler.intensities, label=handler.condition['label'])
+            if not handler.condition.get('dummy',False):
+                ax.plot(handler.intensities, label=handler.condition['label'])
             #ax.plot(handler.data)
             '''
             combinedInten, combinedResp, combinedN = \
