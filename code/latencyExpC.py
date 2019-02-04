@@ -36,12 +36,12 @@ class CLatencyExperiment(Experiment):
             config.dataPath += '/latency'
         super().__init__(config)
     def setupData(self):
-        self.dataKeys = ['trial','primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','direction','size','intensity','requestedLatency','actualLatency','responseTime','correct']
+        self.dataKeys = ['trial','primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','direction','size','intensity','requestedLatency','actualLatency','totalLatency','responseTime','correct']
         extra = ['caseLabel','caseTrial','trialsAtStep','stepCorrect','expected', 'w', 'direction', 'stepsize', 'stepChange']
         self.dataKeys.extend(extra)
         # make a text file to save data
-        fileName = '%s_data_%s'%(self.userInfo['ID'],self.userInfo['Date'][-1])
-        self.dataFile = open(os.path.join(config.dataPath,'c-%s.csv'%fileName), 'w')  # a simple text file with 'comma-separated-values'
+        self.fileName = 'c-%s_data_%s'%(self.userInfo['ID'],self.userInfo['Date'][-1])
+        self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%self.fileName), 'w')  # a simple text file with 'comma-separated-values'
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupStimuli(self):
         self.chars = ['{','|','}','~'] # L, D, R, U (in font)
@@ -56,7 +56,7 @@ class CLatencyExperiment(Experiment):
             self.primeStim.append(textStim)
             stims = []
             for char in self.chars:
-                textStim = visual.TextStim(win=win,height=15/60,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=char)
+                textStim = visual.TextStim(win=win,height=15/60,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=char) # '%s\n'%(char * 3)*3
                 stims.append(textStim)
             self.mainStim.append(stims)
             textStim = visual.TextStim(win=win,height=15/60,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text="O")
@@ -66,30 +66,19 @@ class CLatencyExperiment(Experiment):
         self.stimuli = [textStim, textStim, textStim]
         self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
-        '''conditions=[
-            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal': 60, 'minVal':0, 'maxVal':80, 'stepType':'lin', 'stepSizes':[8],'nUp':1,'nDown':1, 'nTrials':5},
-        ]
-        self.handler = data.MultiStairHandler(stairType='simple',conditions=conditions)
-        '''
         conditions = [
-            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
         ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
     def run(self):
-        if self.newUser:
-            self.tutorial()
+        #if self.newUser:
+        self.tutorial()
         self.proceedure()
     def tutorial(self):
         # set up instructions
@@ -156,7 +145,7 @@ class CLatencyExperiment(Experiment):
         correct = 0
         sequence = [(0,3),(2,2),(2,0),(3,0),(1,3),(1,1)]
         sequnceIdx = 0
-        while correct < 6:
+        while correct < 3:
             primeIdx, winIdx = sequence[sequnceIdx]
             win = self.windows[winIdx]
             text, primeValue = self.genLogicPrimer()
@@ -244,19 +233,24 @@ class CLatencyExperiment(Experiment):
             data['stimDepth'] = self.config.monitors[mainWindow].currentCalib['distance']
             # run the proceedure
             self.present(prime)
+            self.stimuliTime[0] = self.clock.getTime()
             resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
             self.clear(prime)
-            data['primeTime'] = self.stimuliTime[0]
+            data['primeTime'] = self.clock.getTime() - self.stimuliTime[0]
             self.present(main)
+            self.stimuliTime[1] = self.clock.getTime()
             self.waitTime(frames*SPF)
             self.present(post)
             self.clear(main)
-            data['actualLatency'] = self.stimuliTime[1]
+            data['actualLatency'] = self.clock.getTime() - self.stimuliTime[1]
+            data['totalLatency'] = data['actualLatency']
+            self.stimuliTime[2] = self.clock.getTime()
             resp2 = None
             while resp2 is None:
                 resp2 = self.waitForResponse(self.joy.getAllHats,[0],true=[self.responses[direction]],false=[i for i in self.responses if i != self.responses[direction]])
             self.clear(post)
-            data['responseTime'] = self.stimuliTime[2]
+            data['responseTime'] = self.clock.getTime() - self.stimuliTime[2]
+            self.clearStimuli()
             # record the results
             data['primeCorrect'] = resp1 == primeValue
             data['correct'] = resp2
@@ -276,11 +270,11 @@ class CLatencyExperiment(Experiment):
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
                 # add an inital rule for vPest
-                #if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
-                #    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
-                #    self.handler.currentStaircase._intensityDec()
-                #    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
-                #    #self.handler.currentStaircase.calculateNextIntensity()
+                if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
+                    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
+                    self.handler.currentStaircase._intensityDec()
+                    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
+                    #self.handler.currentStaircase.calculateNextIntensity()
             else:
                 self.handler.currentStaircase.intensities.pop()
             if self.storeData:

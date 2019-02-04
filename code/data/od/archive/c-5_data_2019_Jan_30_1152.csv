@@ -1,0 +1,2 @@
+trial,primeCorrect,primeTime,primeDepth,stimDepth,diopters,nearToFar,direction,size,intensity,requestedLatency,actualLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange
+trial,primeCorrect,primeTime,primeDepth,stimDepth,extraDepth,driveFrames,nearToFar,diopters,direction,size,intensity,extraLatency,mainLatency,totalLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange

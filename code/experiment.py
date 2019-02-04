@@ -154,7 +154,11 @@ class Experiment(ABC):
         self.proceedure()
     def close(self, ui=True):
         if self.storeData:
-            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s_%s'%(self.userInfo['ID'],self.config.stairFile,self.userInfo['Date'][-1])))
+            # add user data to handler
+            self.userInfo.pop('Name')
+            self.handler.userInfo = self.userInfo
+            # write out handler
+            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s'%(self.fileName,self.config.stairFile)))
             #self.handler.saveAsExcel(os.path.join(self.config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],self.config.stairFile)))
             self.dataFile.close()
         if ui:
