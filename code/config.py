@@ -10,7 +10,7 @@ mon_33cm.currentCalib['distance'] = 33.0
 mon_33cm.currentCalib['sizePix'] = [2048, 1536]
 mon_33cm.currentCalib['width'] = 20.0
 mon_33cm.screenPos = (-2560, 1440)
-mon_33cm.center = (0,3.12)  # position of center in units
+mon_33cm.center = (0.56,2.84)  # position of center in units
 #mon_33cm.screen = 2
 mon_33cm.flipHoriz = True
 mon_33cm.color = [-1,-1,-1]
@@ -40,7 +40,7 @@ mon_800cm.currentCalib['distance'] = 800.0
 mon_800cm.currentCalib['sizePix'] = [1080, 1920]
 mon_800cm.currentCalib['width'] = 86.5
 mon_800cm.screenPos = (4096, 1440)
-mon_800cm.center = (0,0)  # position of center in units
+mon_800cm.center = (-0.08,-0.08)  # position of center in units
 #mon_800cm.screen = 3
 mon_800cm.flipHoriz = False
 mon_800cm.color = [-1,-1,-1]
@@ -66,6 +66,13 @@ joyID = 0
 dataPath = './data'
 userFile = 'users.psydat'
 stairFile = 'stair'
+
+### stimulus parameters ###
+primeHeight = .15
+primePresentations = [1,1,1,1,2,2,2,2,3,3,4]
+mainHeight = 10/60  # gap size = 2 arc min
+mainChars = ['{','|','}','~'] # L, D, R, U (in font)
+mainResponses = [[-1,0],[0,-1],[1,0],[0,1]] # L, D, R, U (on joystick hat)
 
 ### assets parameters ###
 assetsPath = './assets'

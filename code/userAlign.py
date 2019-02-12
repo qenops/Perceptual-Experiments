@@ -4,6 +4,12 @@ import os
 import config
 
 class AlignExperiment(Experiment):
+    def __init__(self, config):
+        self.userInfo = getattr(config,'userInfo',None)
+        revertStoreData = getattr(config,'storeData',True)
+        config.storeData = False
+        super().__init__(config)
+        config.storeData = revertStoreData
     def setupData(self):
         pass
     def setupStimuli(self):
@@ -49,6 +55,9 @@ class AlignExperiment(Experiment):
         self.stimuli = allStim
         self.stimuliTime = [0] * len(self.stimuli)
         self.states = [self.horizStim, self.leftStim, self.rightStim, self.leftStim + self.rightStim + [promptEnd]]
+        if not self.newUser:
+            promptHoriz.text = 'Raise/lower chinrest until lines align.\nPress "Start" to finish.'
+            self.states = [self.horizStim,]
     def proceedure(self):
         '''The proceedure of the experiment'''
         while not self.done:

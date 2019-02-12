@@ -1,0 +1,658 @@
+trial,primeCorrect,primeTime,primeDepth,stimDepth,extraDepth,driveFrames,nearToFar,diopters,direction,size,intensity,extraLatency,mainLatency,totalLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 1:      Frames = 60     Expr = near-000
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 2:      Frames = 60     Expr = near-080
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 3:      Frames = 60     Expr = near-rnd3
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 4:      Frames = 60     Expr = near-240
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 5:      Frames = 60     Expr = near-rndm
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 6:      Frames = 60     Expr = near-160
+Total trials: 1, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 7:      Frames = 60     Expr = near-rnd2
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 8:      Frames = 44     Expr = near-rnd2
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 9:      Frames = 44     Expr = near-rndm
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 10:     Frames = 44     Expr = near-240
+Total trials: 2, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 11:     Frames = 44     Expr = near-rnd3
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 12:     Frames = 44     Expr = near-080
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 13:     Frames = 44     Expr = near-160
+Total trials: 2, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 14:     Frames = 44     Expr = near-000
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 15:     Frames = 28     Expr = near-080
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 16:     Frames = 28     Expr = near-160
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 17:     Frames = 28     Expr = near-240
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 18:     Frames = 28     Expr = near-rnd2
+Total trials: 3, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 19:     Frames = 44     Expr = near-rnd3
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 20:     Frames = 28     Expr = near-rndm
+Total trials: 3, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 21:     Frames = 28     Expr = near-000
+Total trials: 4, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 22:     Frames = 12     Expr = near-rndm
+Total trials: 4, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 23:     Frames = 12     Expr = near-240
+Total trials: 4, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 24:     Frames = 12     Expr = near-080
+Total trials: 4, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 25:     Frames = 12     Expr = near-rnd2
+Total trials: 4, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 26:     Frames = 12     Expr = near-000
+Total trials: 4, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 27:     Frames = 60     Expr = near-rnd3
+Total trials: 4, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 28:     Frames = 12     Expr = near-160
+Total trials: 5, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 29:     Frames = 28     Expr = near-rnd2
+Total trials: 5, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 30:     Frames = 28     Expr = near-000
+Total trials: 5, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 31:     Frames = 60     Expr = near-rnd3
+Total trials: 5, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: start, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 32:     Frames = 0      Expr = near-rndm
+Total trials: 5, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 33:     Frames = 0      Expr = near-240
+Total trials: 5, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 34:     Frames = 28     Expr = near-160
+Total trials: 5, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 35:     Frames = 28     Expr = near-080
+Total trials: 6, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 36:     Frames = 28     Expr = near-080
+Total trials: 6, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 37:     Frames = 28     Expr = near-000
+Total trials: 6, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 38:     Frames = 28     Expr = near-rnd2
+Total trials: 6, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 39:     Frames = 28     Expr = near-160
+Total trials: 6, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 40:     Frames = 60     Expr = near-rnd3
+Total trials: 6, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 0.5, Stepchange: 0
+Trial # 41:     Frames = 0      Expr = near-rndm
+Total trials: 6, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 42:     Frames = 16     Expr = near-240
+Total trials: 7, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 43:     Frames = 16     Expr = near-240
+Total trials: 7, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 44:     Frames = 28     Expr = near-160
+Total trials: 7, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 45:     Frames = 28     Expr = near-080
+Total trials: 7, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 46:     Frames = 28     Expr = near-rnd2
+Total trials: 7, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 47:     Frames = 44     Expr = near-000
+Total trials: 7, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 48:     Frames = 44     Expr = near-rnd3
+Total trials: 7, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 49:     Frames = 16     Expr = near-rndm
+Total trials: 8, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 50:     Frames = 44     Expr = near-000
+Total trials: 8, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 51:     Frames = 12     Expr = near-080
+Total trials: 8, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 52:     Frames = 16     Expr = near-rndm
+Total trials: 8, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 53:     Frames = 32     Expr = near-240
+Total trials: 8, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 54:     Frames = 12     Expr = near-rnd2
+Total trials: 8, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 55:     Frames = 12     Expr = near-160
+Total trials: 8, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 56:     Frames = 44     Expr = near-rnd3
+Total trials: 9, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 57:     Frames = 12     Expr = near-160
+Total trials: 9, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 58:     Frames = 12     Expr = near-rnd2
+Total trials: 9, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 59:     Frames = 52     Expr = near-rnd3
+Total trials: 9, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 60:     Frames = 12     Expr = near-080
+Total trials: 9, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 61:     Frames = 16     Expr = near-rndm
+Total trials: 9, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 16, Current w: 1.0, Stepchange: 0
+Trial # 62:     Frames = 32     Expr = near-240
+Total trials: 9, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 63:     Frames = 44     Expr = near-000
+Total trials: 10, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 64:     Frames = 52     Expr = near-rnd3
+Total trials: 10, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 65:     Frames = 20     Expr = near-160
+Total trials: 10, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 0.5, Stepchange: 0
+Trial # 66:     Frames = 32     Expr = near-240
+Total trials: 10, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 67:     Frames = 20     Expr = near-080
+Total trials: 10, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 68:     Frames = 12     Expr = near-rnd2
+Total trials: 10, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 69:     Frames = 28     Expr = near-000
+Total trials: 10, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 70:     Frames = 0      Expr = near-rndm
+Total trials: 11, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 71:     Frames = 4      Expr = near-rnd2
+Total trials: 11, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 72:     Frames = 16     Expr = near-240
+Total trials: 11, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 73:     Frames = 20     Expr = near-160
+Total trials: 11, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 74:     Frames = 20     Expr = near-080
+Total trials: 11, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 75:     Frames = 52     Expr = near-rnd3
+Total trials: 11, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 76:     Frames = 28     Expr = near-000
+Total trials: 11, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 77:     Frames = 0      Expr = near-rndm
+Total trials: 12, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 78:     Frames = 4      Expr = near-rnd2
+Total trials: 12, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 79:     Frames = 52     Expr = near-rnd3
+Total trials: 12, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 80:     Frames = 16     Expr = near-240
+Total trials: 12, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 81:     Frames = 36     Expr = near-000
+Total trials: 12, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 1.0, Stepchange: 0
+Trial # 82:     Frames = 20     Expr = near-160
+Total trials: 12, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 83:     Frames = 8      Expr = near-rndm
+Total trials: 12, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 84:     Frames = 20     Expr = near-080
+Total trials: 13, Trials after step change: 5, Correct: 2 (40.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 85:     Frames = 52     Expr = near-rnd3
+Total trials: 13, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 86:     Frames = 16     Expr = near-240
+Total trials: 13, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 87:     Frames = 4      Expr = near-rnd2
+Total trials: 13, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 88:     Frames = 8      Expr = near-rndm
+Total trials: 13, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 89:     Frames = 36     Expr = near-000
+Total trials: 13, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 90:     Frames = 16     Expr = near-160
+Total trials: 13, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 91:     Frames = 20     Expr = near-080
+Total trials: 14, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 92:     Frames = 16     Expr = near-240
+Total trials: 14, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 93:     Frames = 16     Expr = near-160
+Total trials: 14, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 94:     Frames = 4      Expr = near-rnd2
+Total trials: 14, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 1.0, Stepchange: 0
+Trial # 95:     Frames = 8      Expr = near-rndm
+Total trials: 14, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 96:     Frames = 20     Expr = near-080
+Total trials: 14, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 97:     Frames = 36     Expr = near-000
+Total trials: 14, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 98:     Frames = 56     Expr = near-rnd3
+Total trials: 15, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 99:     Frames = 4      Expr = near-rnd2
+Total trials: 15, Trials after step change: 6, Correct: 3 (50.00%), Expected: 3.75 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 100:    Frames = 20     Expr = near-080
+Total trials: 15, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 101:    Frames = 36     Expr = near-000
+Total trials: 15, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 102:    Frames = 4      Expr = near-rndm
+Total trials: 15, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 103:    Frames = 16     Expr = near-240
+Total trials: 15, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 104:    Frames = 56     Expr = near-rnd3
+Total trials: 15, Trials after step change: 3, Correct: 1 (33.33%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 105:    Frames = 16     Expr = near-160
+Total trials: 16, Trials after step change: 7, Correct: 4 (57.14%), Expected: 4.38 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 106:    Frames = 20     Expr = near-080
+Total trials: 16, Trials after step change: 4, Correct: 1 (25.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 107:    Frames = 16     Expr = near-160
+Total trials: 16, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 108:    Frames = 56     Expr = near-rnd3
+Total trials: 16, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 109:    Frames = 4      Expr = near-rndm
+Total trials: 16, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 110:    Frames = 36     Expr = near-000
+Total trials: 16, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 111:    Frames = 16     Expr = near-240
+Total trials: 16, Trials after step change: 6, Correct: 5 (83.33%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 112:    Frames = 4      Expr = near-rnd2
+Total trials: 17, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 113:    Frames = 4      Expr = near-rndm
+Total trials: 17, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 114:    Frames = 16     Expr = near-240
+Total trials: 17, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 115:    Frames = 0      Expr = near-rnd2
+Total trials: 17, Trials after step change: 6, Correct: 5 (83.33%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 1.0, Stepchange: 0
+Trial # 116:    Frames = 36     Expr = near-000
+Total trials: 17, Trials after step change: 5, Correct: 2 (40.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 117:    Frames = 16     Expr = near-160
+Total trials: 17, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 118:    Frames = 20     Expr = near-080
+Total trials: 17, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 119:    Frames = 56     Expr = near-rnd3
+Total trials: 18, Trials after step change: 6, Correct: 2 (33.33%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 120:    Frames = 16     Expr = near-160
+Total trials: 18, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 121:    Frames = 32     Expr = near-000
+Total trials: 18, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 122:    Frames = 56     Expr = near-rnd3
+Total trials: 18, Trials after step change: 8, Correct: 6 (75.00%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 123:    Frames = 16     Expr = near-240
+Total trials: 18, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 124:    Frames = 0      Expr = near-rnd2
+Total trials: 18, Trials after step change: 9, Correct: 5 (55.56%), Expected: 5.62 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 125:    Frames = 20     Expr = near-080
+Total trials: 18, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 126:    Frames = 4      Expr = near-rndm
+Total trials: 19, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 127:    Frames = 0      Expr = near-rnd2
+Total trials: 19, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 128:    Frames = 4      Expr = near-rndm
+Total trials: 19, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 129:    Frames = 32     Expr = near-000
+Total trials: 19, Trials after step change: 9, Correct: 6 (66.67%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 130:    Frames = 16     Expr = near-240
+Total trials: 19, Trials after step change: 6, Correct: 5 (83.33%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 1.0, Stepchange: 0
+Trial # 131:    Frames = 56     Expr = near-rnd3
+Total trials: 19, Trials after step change: 10, Correct: 6 (60.00%), Expected: 6.25 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 132:    Frames = 20     Expr = near-080
+Total trials: 19, Trials after step change: 7, Correct: 3 (42.86%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 133:    Frames = 16     Expr = near-160
+Total trials: 20, Trials after step change: 6, Correct: 5 (83.33%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 134:    Frames = 4      Expr = near-rndm
+Total trials: 20, Trials after step change: 3, Correct: 1 (33.33%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 135:    Frames = 32     Expr = near-000
+Total trials: 20, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 136:    Frames = 52     Expr = near-rnd3
+Total trials: 20, Trials after step change: 11, Correct: 6 (54.55%), Expected: 6.88 (62.50%), Current Direction: up, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 137:    Frames = 20     Expr = near-080
+Total trials: 20, Trials after step change: 10, Correct: 6 (60.00%), Expected: 6.25 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 138:    Frames = 16     Expr = near-240
+Total trials: 20, Trials after step change: 8, Correct: 4 (50.00%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 139:    Frames = 16     Expr = near-160
+Total trials: 20, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 140:    Frames = 0      Expr = near-rnd2
+Total trials: 21, Trials after step change: 11, Correct: 7 (63.64%), Expected: 6.88 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 141:    Frames = 16     Expr = near-240
+Total trials: 21, Trials after step change: 9, Correct: 5 (55.56%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 142:    Frames = 16     Expr = near-160
+Total trials: 21, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 143:    Frames = 52     Expr = near-rnd3
+Total trials: 21, Trials after step change: 7, Correct: 6 (85.71%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 144:    Frames = 4      Expr = near-rndm
+Total trials: 21, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 145:    Frames = 32     Expr = near-000
+Total trials: 21, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 146:    Frames = 0      Expr = near-rnd2
+Total trials: 21, Trials after step change: 12, Correct: 6 (50.00%), Expected: 7.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 1.0, Stepchange: 1
+Trial # 147:    Frames = 20     Expr = near-080
+Trial # 148:    Frames = 32     Expr = near-000
+Total trials: 22, Trials after step change: 10, Correct: 6 (60.00%), Expected: 6.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 149:    Frames = 16     Expr = near-160
+Total trials: 22, Trials after step change: 12, Correct: 8 (66.67%), Expected: 7.50 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 150:    Frames = 16     Expr = near-240
+Total trials: 22, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 151:    Frames = 52     Expr = near-rnd3
+Total trials: 22, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 152:    Frames = 22     Expr = near-080
+Total trials: 22, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 153:    Frames = 0      Expr = near-rnd2
+Total trials: 22, Trials after step change: 8, Correct: 7 (87.50%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 154:    Frames = 4      Expr = near-rndm
+Total trials: 23, Trials after step change: 7, Correct: 4 (57.14%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 0
+Trial # 155:    Frames = 0      Expr = near-rnd2
+Total trials: 23, Trials after step change: 9, Correct: 8 (88.89%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 156:    Frames = 4      Expr = near-rndm
+Total trials: 23, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 157:    Frames = 52     Expr = near-rnd3
+Total trials: 23, Trials after step change: 11, Correct: 7 (63.64%), Expected: 6.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 158:    Frames = 16     Expr = near-160
+Total trials: 23, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 159:    Frames = 22     Expr = near-080
+Total trials: 22, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 160:    Frames = 32     Expr = near-000
+Total trials: 23, Trials after step change: 13, Correct: 9 (69.23%), Expected: 8.12 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 161:    Frames = 16     Expr = near-240
+Total trials: 24, Trials after step change: 12, Correct: 8 (66.67%), Expected: 7.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 162:    Frames = 16     Expr = near-160
+Total trials: 24, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 163:    Frames = 52     Expr = near-rnd3
+Total trials: 23, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 164:    Frames = 32     Expr = near-000
+Total trials: 24, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 165:    Frames = 22     Expr = near-080
+Total trials: 24, Trials after step change: 8, Correct: 4 (50.00%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 8, Current w: 1.0, Stepchange: 1
+Trial # 166:    Frames = 0      Expr = near-rnd2
+Total trials: 24, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 167:    Frames = 3      Expr = near-rndm
+Total trials: 24, Trials after step change: 14, Correct: 10 (71.43%), Expected: 8.75 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 168:    Frames = 16     Expr = near-240
+Total trials: 25, Trials after step change: 4, Correct: 4 (100.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 169:    Frames = 22     Expr = near-080
+Total trials: 25, Trials after step change: 6, Correct: 3 (50.00%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 170:    Frames = 52     Expr = near-rnd3
+Total trials: 24, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 171:    Frames = 32     Expr = near-000
+Total trials: 25, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 172:    Frames = 12     Expr = near-240
+Total trials: 25, Trials after step change: 13, Correct: 9 (69.23%), Expected: 8.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 173:    Frames = 16     Expr = near-160
+Total trials: 25, Trials after step change: 9, Correct: 4 (44.44%), Expected: 5.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 1.0, Stepchange: 1
+Trial # 174:    Frames = 0      Expr = near-rnd2
+Total trials: 25, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 175:    Frames = 3      Expr = near-rndm
+Total trials: 26, Trials after step change: 7, Correct: 3 (42.86%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 176:    Frames = 52     Expr = near-rnd3
+Total trials: 26, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 177:    Frames = 3      Expr = near-rndm
+Total trials: 25, Trials after step change: 8, Correct: 6 (75.00%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 178:    Frames = 32     Expr = near-000
+Total trials: 26, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 179:    Frames = 4      Expr = near-rnd2
+Total trials: 26, Trials after step change: 14, Correct: 10 (71.43%), Expected: 8.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 180:    Frames = 16     Expr = near-160
+Total trials: 26, Trials after step change: 5, Correct: 5 (100.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 181:    Frames = 22     Expr = near-080
+Total trials: 26, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 182:    Frames = 12     Expr = near-240
+Total trials: 27, Trials after step change: 15, Correct: 10 (66.67%), Expected: 9.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 183:    Frames = 16     Expr = near-160
+Total trials: 26, Trials after step change: 9, Correct: 7 (77.78%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 184:    Frames = 32     Expr = near-000
+Total trials: 27, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 185:    Frames = 12     Expr = near-240
+Total trials: 27, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 186:    Frames = 4      Expr = near-rnd2
+Total trials: 27, Trials after step change: 6, Correct: 5 (83.33%), Expected: 3.75 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 187:    Frames = 22     Expr = near-080
+Total trials: 27, Trials after step change: 4, Correct: 4 (100.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 188:    Frames = 3      Expr = near-rndm
+Total trials: 27, Trials after step change: 8, Correct: 3 (37.50%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 189:    Frames = 52     Expr = near-rnd3
+Total trials: 28, Trials after step change: 9, Correct: 4 (44.44%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 190:    Frames = 52     Expr = near-rnd3
+Total trials: 28, Trials after step change: 16, Correct: 10 (62.50%), Expected: 10.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 191:    Frames = 16     Expr = near-160
+Total trials: 28, Trials after step change: 5, Correct: 5 (100.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 192:    Frames = 3      Expr = near-rndm
+Total trials: 27, Trials after step change: 10, Correct: 8 (80.00%), Expected: 6.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 193:    Frames = 32     Expr = near-000
+Total trials: 28, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 194:    Frames = 12     Expr = near-240
+Total trials: 28, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 195:    Frames = 22     Expr = near-080
+Total trials: 28, Trials after step change: 3, Correct: 1 (33.33%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 196:    Frames = 4      Expr = near-rnd2
+Total trials: 29, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 197:    Frames = 4      Expr = near-rnd2
+Total trials: 29, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 198:    Frames = 22     Expr = near-080
+Total trials: 29, Trials after step change: 10, Correct: 4 (40.00%), Expected: 6.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 199:    Frames = 52     Expr = near-rnd3
+Total trials: 29, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 200:    Frames = 12     Expr = near-240
+Total trials: 29, Trials after step change: 6, Correct: 6 (100.00%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 201:    Frames = 3      Expr = near-rndm
+Total trials: 29, Trials after step change: 17, Correct: 10 (58.82%), Expected: 10.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 202:    Frames = 16     Expr = near-160
+Total trials: 28, Trials after step change: 11, Correct: 8 (72.73%), Expected: 6.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 203:    Frames = 32     Expr = near-000
+Total trials: 29, Trials after step change: 12, Correct: 8 (66.67%), Expected: 7.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 204:    Frames = 32     Expr = near-000
+Total trials: 30, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 205:    Frames = 12     Expr = near-240
+Total trials: 30, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 206:    Frames = 4      Expr = near-rnd2
+Total trials: 30, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 207:    Frames = 2      Expr = near-rndm
+Total trials: 30, Trials after step change: 9, Correct: 5 (55.56%), Expected: 5.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 208:    Frames = 22     Expr = near-080
+Total trials: 30, Trials after step change: 18, Correct: 11 (61.11%), Expected: 11.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 209:    Frames = 16     Expr = near-160
+Total trials: 30, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 210:    Frames = 53     Expr = near-rnd3
+Total trials: 31, Trials after step change: 6, Correct: 3 (50.00%), Expected: 3.75 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 211:    Frames = 4      Expr = near-rnd2
+Total trials: 31, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 212:    Frames = 53     Expr = near-rnd3
+Trial # 213:    Frames = 2      Expr = near-rndm
+Total trials: 30, Trials after step change: 13, Correct: 8 (61.54%), Expected: 8.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 214:    Frames = 32     Expr = near-000
+Total trials: 31, Trials after step change: 19, Correct: 12 (63.16%), Expected: 11.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 215:    Frames = 16     Expr = near-160
+Total trials: 31, Trials after step change: 10, Correct: 6 (60.00%), Expected: 6.25 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 216:    Frames = 22     Expr = near-080
+Total trials: 31, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 0
+Trial # 217:    Frames = 12     Expr = near-240
+Total trials: 32, Trials after step change: 11, Correct: 6 (54.55%), Expected: 6.88 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 218:    Frames = 22     Expr = near-080
+Total trials: 31, Trials after step change: 14, Correct: 9 (64.29%), Expected: 8.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 219:    Frames = 32     Expr = near-000
+Total trials: 32, Trials after step change: 7, Correct: 4 (57.14%), Expected: 4.38 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 220:    Frames = 4      Expr = near-rnd2
+Total trials: 32, Trials after step change: 20, Correct: 13 (65.00%), Expected: 12.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 221:    Frames = 16     Expr = near-160
+Total trials: 32, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 222:    Frames = 12     Expr = near-240
+Total trials: 31, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 223:    Frames = 2      Expr = near-rndm
+Total trials: 32, Trials after step change: 3, Correct: 1 (33.33%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 224:    Frames = 53     Expr = near-rnd3
+Total trials: 33, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 225:    Frames = 4      Expr = near-rnd2
+Total trials: 32, Trials after step change: 15, Correct: 10 (66.67%), Expected: 9.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 226:    Frames = 32     Expr = near-000
+Total trials: 33, Trials after step change: 21, Correct: 14 (66.67%), Expected: 13.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 227:    Frames = 16     Expr = near-160
+Total trials: 33, Trials after step change: 9, Correct: 6 (66.67%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 228:    Frames = 12     Expr = near-240
+Total trials: 33, Trials after step change: 12, Correct: 6 (50.00%), Expected: 7.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 229:    Frames = 22     Expr = near-080
+Total trials: 32, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 230:    Frames = 2      Expr = near-rndm
+Total trials: 33, Trials after step change: 4, Correct: 1 (25.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 231:    Frames = 53     Expr = near-rnd3
+Total trials: 34, Trials after step change: 22, Correct: 14 (63.64%), Expected: 13.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 232:    Frames = 16     Expr = near-160
+Total trials: 33, Trials after step change: 4, Correct: 4 (100.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 233:    Frames = 2      Expr = near-rndm
+Total trials: 34, Trials after step change: 5, Correct: 2 (40.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 234:    Frames = 53     Expr = near-rnd3
+Total trials: 34, Trials after step change: 10, Correct: 7 (70.00%), Expected: 6.25 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 235:    Frames = 12     Expr = near-240
+Total trials: 34, Trials after step change: 9, Correct: 5 (55.56%), Expected: 5.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 236:    Frames = 4      Expr = near-rnd2
+Total trials: 33, Trials after step change: 16, Correct: 11 (68.75%), Expected: 10.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 237:    Frames = 32     Expr = near-000
+Total trials: 34, Trials after step change: 13, Correct: 7 (53.85%), Expected: 8.12 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 238:    Frames = 22     Expr = near-080
+Total trials: 34, Trials after step change: 17, Correct: 11 (64.71%), Expected: 10.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 239:    Frames = 32     Expr = near-000
+Total trials: 35, Trials after step change: 10, Correct: 6 (60.00%), Expected: 6.25 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 240:    Frames = 4      Expr = near-rnd2
+Total trials: 35, Trials after step change: 11, Correct: 7 (63.64%), Expected: 6.88 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 241:    Frames = 12     Expr = near-240
+Total trials: 35, Trials after step change: 23, Correct: 15 (65.22%), Expected: 14.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 242:    Frames = 16     Expr = near-160
+Total trials: 35, Trials after step change: 6, Correct: 3 (50.00%), Expected: 3.75 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 243:    Frames = 53     Expr = near-rnd3
+Total trials: 34, Trials after step change: 5, Correct: 5 (100.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 244:    Frames = 2      Expr = near-rndm
+Total trials: 35, Trials after step change: 14, Correct: 8 (57.14%), Expected: 8.75 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 245:    Frames = 22     Expr = near-080
+Total trials: 36, Trials after step change: 11, Correct: 7 (63.64%), Expected: 6.88 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 246:    Frames = 4      Expr = near-rnd2
+Total trials: 36, Trials after step change: 7, Correct: 3 (42.86%), Expected: 4.38 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 247:    Frames = 53     Expr = near-rnd3
+Total trials: 36, Trials after step change: 24, Correct: 15 (62.50%), Expected: 15.00 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 3
+Trial # 248:    Frames = 16     Expr = near-160
+Total trials: 35, Trials after step change: 6, Correct: 6 (100.00%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 249:    Frames = 2      Expr = near-rndm
+Total trials: 36, Trials after step change: 15, Correct: 9 (60.00%), Expected: 9.38 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 250:    Frames = 22     Expr = near-080
+Total trials: 36, Trials after step change: 12, Correct: 7 (58.33%), Expected: 7.50 (62.50%), Current Direction: down, Current Stepsize: 4, Current w: 1.0, Stepchange: 1
+Trial # 251:    Frames = 12     Expr = near-240
+Total trials: 35, Trials after step change: 18, Correct: 12 (66.67%), Expected: 11.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 252:    Frames = 32     Expr = near-000
+Total trials: 37, Trials after step change: 13, Correct: 7 (53.85%), Expected: 8.12 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 1.0, Stepchange: 1
+Trial # 253:    Frames = 12     Expr = near-240
+Total trials: 36, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 254:    Frames = 1      Expr = near-rndm
+Total trials: 37, Trials after step change: 12, Correct: 8 (66.67%), Expected: 7.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 255:    Frames = 4      Expr = near-rnd2
+Total trials: 37, Trials after step change: 8, Correct: 4 (50.00%), Expected: 5.00 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 3.0, Stepchange: 1
+Trial # 256:    Frames = 53     Expr = near-rnd3
+Total trials: 36, Trials after step change: 19, Correct: 13 (68.42%), Expected: 11.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 257:    Frames = 32     Expr = near-000
+Total trials: 37, Trials after step change: 16, Correct: 10 (62.50%), Expected: 10.00 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 258:    Frames = 22     Expr = near-080
+Total trials: 37, Trials after step change: 20, Correct: 14 (70.00%), Expected: 12.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 259:    Frames = 32     Expr = near-000
+Total trials: 38, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 260:    Frames = 14     Expr = near-240
+Total trials: 38, Trials after step change: 13, Correct: 9 (69.23%), Expected: 8.12 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 261:    Frames = 4      Expr = near-rnd2
+Total trials: 38, Trials after step change: 17, Correct: 11 (64.71%), Expected: 10.62 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 262:    Frames = 22     Expr = near-080
+Total trials: 37, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 263:    Frames = 1      Expr = near-rndm
+Total trials: 39, Trials after step change: 18, Correct: 12 (66.67%), Expected: 11.25 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 264:    Frames = 22     Expr = near-080
+Total trials: 38, Trials after step change: 3, Correct: 1 (33.33%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 265:    Frames = 1      Expr = near-rndm
+Total trials: 39, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 266:    Frames = 14     Expr = near-240
+Total trials: 38, Trials after step change: 21, Correct: 15 (71.43%), Expected: 13.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 267:    Frames = 32     Expr = near-000
+Total trials: 39, Trials after step change: 14, Correct: 10 (71.43%), Expected: 8.75 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 268:    Frames = 4      Expr = near-rnd2
+Total trials: 39, Trials after step change: 4, Correct: 2 (50.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 269:    Frames = 1      Expr = near-rndm
+Total trials: 40, Trials after step change: 15, Correct: 11 (73.33%), Expected: 9.38 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 270:    Frames = 4      Expr = near-rnd2
+Total trials: 40, Trials after step change: 19, Correct: 13 (68.42%), Expected: 11.88 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 271:    Frames = 22     Expr = near-080
+Total trials: 39, Trials after step change: 22, Correct: 16 (72.73%), Expected: 13.75 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 2
+Trial # 272:    Frames = 32     Expr = near-000
+Total trials: 40, Trials after step change: 3, Correct: 0 (0.00%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 273:    Frames = 14     Expr = near-240
+Total trials: 40, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 274:    Frames = 31     Expr = near-000
+Total trials: 41, Trials after step change: 4, Correct: 0 (0.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 275:    Frames = 14     Expr = near-240
+Total trials: 41, Trials after step change: 20, Correct: 14 (70.00%), Expected: 12.50 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 276:    Frames = 22     Expr = near-080
+Total trials: 41, Trials after step change: 16, Correct: 12 (75.00%), Expected: 10.00 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 277:    Frames = 4      Expr = near-rnd2
+Total trials: 40, Trials after step change: 5, Correct: 3 (60.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 278:    Frames = 1      Expr = near-rndm
+Total trials: 41, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 279:    Frames = 31     Expr = near-000
+Total trials: 41, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 280:    Frames = 1      Expr = near-rndm
+Total trials: 42, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 281:    Frames = 15     Expr = near-240
+Total trials: 42, Trials after step change: 17, Correct: 13 (76.47%), Expected: 10.62 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 2.0, Stepchange: 2
+Trial # 282:    Frames = 4      Expr = near-rnd2
+Total trials: 42, Trials after step change: 21, Correct: 15 (71.43%), Expected: 13.12 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 283:    Frames = 22     Expr = near-080
+Total trials: 42, Trials after step change: 7, Correct: 4 (57.14%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 284:    Frames = 1      Expr = near-rndm
+Total trials: 43, Trials after step change: 2, Correct: 1 (50.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 285:    Frames = 15     Expr = near-240
+Total trials: 43, Trials after step change: 22, Correct: 15 (68.18%), Expected: 13.75 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 286:    Frames = 22     Expr = near-080
+Total trials: 42, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 287:    Frames = 31     Expr = near-000
+Total trials: 43, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 288:    Frames = 1      Expr = near-rndm
+Total trials: 44, Trials after step change: 23, Correct: 16 (69.57%), Expected: 14.38 (62.50%), Current Direction: up, Current Stepsize: 2, Current w: 2.0, Stepchange: 2
+Trial # 289:    Frames = 22     Expr = near-080
+Total trials: 44, Trials after step change: 3, Correct: 2 (66.67%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 290:    Frames = 15     Expr = near-240
+Total trials: 43, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 291:    Frames = 31     Expr = near-000
+Total trials: 45, Trials after step change: 4, Correct: 3 (75.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 292:    Frames = 15     Expr = near-240
+Total trials: 44, Trials after step change: 9, Correct: 6 (66.67%), Expected: 5.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 293:    Frames = 1      Expr = near-rndm
+Total trials: 44, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 294:    Frames = 31     Expr = near-000
+Total trials: 45, Trials after step change: 24, Correct: 16 (66.67%), Expected: 15.00 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 3
+Trial # 295:    Frames = 22     Expr = near-080
+Total trials: 45, Trials after step change: 10, Correct: 7 (70.00%), Expected: 6.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 296:    Frames = 1      Expr = near-rndm
+Total trials: 45, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 297:    Frames = 31     Expr = near-000
+Total trials: 46, Trials after step change: 5, Correct: 4 (80.00%), Expected: 3.12 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 298:    Frames = 15     Expr = near-240
+Total trials: 46, Trials after step change: 11, Correct: 8 (72.73%), Expected: 6.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 299:    Frames = 1      Expr = near-rndm
+Total trials: 47, Trials after step change: 6, Correct: 4 (66.67%), Expected: 3.75 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 300:    Frames = 15     Expr = near-240
+Total trials: 46, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 0
+Trial # 301:    Frames = 31     Expr = near-000
+Total trials: 47, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: down, Current Stepsize: 1, Current w: 3.0, Stepchange: 1
+Trial # 302:    Frames = 31     Expr = near-000
+Total trials: 48, Trials after step change: 7, Correct: 5 (71.43%), Expected: 4.38 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 303:    Frames = 15     Expr = near-240
+Total trials: 47, Trials after step change: 12, Correct: 9 (75.00%), Expected: 7.50 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 304:    Frames = 1      Expr = near-rndm
+Total trials: 49, Trials after step change: 8, Correct: 5 (62.50%), Expected: 5.00 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 305:    Frames = 15     Expr = near-240
+Total trials: 48, Trials after step change: 13, Correct: 10 (76.92%), Expected: 8.12 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 306:    Frames = 1      Expr = near-rndm
+Total trials: 50, Trials after step change: 9, Correct: 6 (66.67%), Expected: 5.62 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 307:    Frames = 15     Expr = near-240
+Total trials: 49, Trials after step change: 14, Correct: 11 (78.57%), Expected: 8.75 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 1
+Trial # 308:    Frames = 1      Expr = near-rndm
+Total trials: 51, Trials after step change: 10, Correct: 7 (70.00%), Expected: 6.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 309:    Frames = 15     Expr = near-240
+Total trials: 50, Trials after step change: 1, Correct: 0 (0.00%), Expected: 0.62 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 310:    Frames = 0      Expr = near-rndm
+Trial # 311:    Frames = 15     Expr = near-240
+Total trials: 51, Trials after step change: 2, Correct: 0 (0.00%), Expected: 1.25 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 312:    Frames = 0      Expr = near-rndm
+Total trials: 52, Trials after step change: 3, Correct: 0 (0.00%), Expected: 1.88 (62.50%), Current Direction: down, Current Stepsize: 2, Current w: 2.0, Stepchange: 0
+Trial # 313:    Frames = 0      Expr = near-rndm
+Total trials: 52, Trials after step change: 11, Correct: 8 (72.73%), Expected: 6.88 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 314:    Frames = 15     Expr = near-240
+Total trials: 53, Trials after step change: 4, Correct: 0 (0.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 315:    Frames = 0      Expr = near-rndm
+Total trials: 53, Trials after step change: 12, Correct: 8 (66.67%), Expected: 7.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 316:    Frames = 15     Expr = near-240
+Total trials: 54, Trials after step change: 13, Correct: 8 (61.54%), Expected: 8.12 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 317:    Frames = 15     Expr = near-240
+Total trials: 54, Trials after step change: 1, Correct: 1 (100.00%), Expected: 0.62 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 318:    Frames = 2      Expr = near-rndm
+Total trials: 55, Trials after step change: 14, Correct: 9 (64.29%), Expected: 8.75 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 319:    Frames = 15     Expr = near-240
+Total trials: 55, Trials after step change: 2, Correct: 2 (100.00%), Expected: 1.25 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 320:    Frames = 2      Expr = near-rndm
+Total trials: 56, Trials after step change: 3, Correct: 3 (100.00%), Expected: 1.88 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 321:    Frames = 2      Expr = near-rndm
+Total trials: 56, Trials after step change: 15, Correct: 9 (60.00%), Expected: 9.38 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 1
+Trial # 322:    Frames = 15     Expr = near-240
+Total trials: 57, Trials after step change: 4, Correct: 4 (100.00%), Expected: 2.50 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 0
+Trial # 323:    Frames = 2      Expr = near-rndm
+Total trials: 57, Trials after step change: 16, Correct: 10 (62.50%), Expected: 10.00 (62.50%), Current Direction: up, Current Stepsize: 1, Current w: 2.0, Stepchange: 2
+Trial # 324:    Frames = 15     Expr = near-240
+All running staircases are dummies. Ending run.
+
+
+
+000 = 31  = .496
+080 = 22  = .432
+160 = 16  = .416
+240 = 15  = .480
+rndm = 2  = .032
+rnd2 = 4  = .064
+rnd3 = 53 = .848
+

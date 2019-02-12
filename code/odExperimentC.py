@@ -26,22 +26,27 @@ class CODExperiment(CLatencyExperiment):
         super().__init__(config, append=False)
     def setupData(self):
         super().setupData()
-        self.dataKeys = ['trial','primeCorrect','primeTime','primeDepth','stimDepth','extraDepth','driveFrames','nearToFar','diopters','direction','size','intensity','extraLatency','mainLatency','totalLatency','responseTime','correct']
+        self.dataKeys = ['trial','primeIter','primeCorrect','primeTime','primeDepth','stimDepth','extraDepth','driveFrames','nearToFar','diopters','direction','size','intensity','extraLatency','mainLatency','totalLatency','responseTime','correct']
         extra = ['caseLabel','caseTrial','trialsAtStep','stepCorrect','expected', 'w', 'direction', 'stepsize', 'stepChange']
         self.dataKeys.extend(extra)
+        # clear out the old labels and write the new ones
+        self.dataFile.close()
+        self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%self.fileName), 'w')  # a simple text file with 'comma-separated-values'
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupHandler(self):
         conditions=[
-            #{'label':'near-000', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':0 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            #{'label':'near-080', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':5 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            #{'label':'near-160', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':10, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            #{'label':'near-rndm', 'dummy':True, 'prime':3, 'stim':None, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            #{'label':'near-rnd2', 'dummy':True, 'prime':3, 'stim':None, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far-000', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far-080', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':5, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far-160', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':10, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far-rndm', 'dummy':True, 'prime':0, 'stim':None, 'extra':2 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far-rnd2', 'dummy':True, 'prime':0, 'stim':None, 'extra':2 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'2AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-000', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':0 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-080', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':5 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-160', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':10, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-240', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':15, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-rndm', 'dummy':True, 'prime':3, 'stim':3, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-rnd2', 'dummy':True, 'prime':3, 'stim':2, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-rnd3', 'dummy':True, 'prime':3, 'stim':0, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            #{'label':'far-000', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            #{'label':'far-080', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':5, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            #{'label':'far-160', 'dummy':False, 'prime':0, 'stim':2, 'extra':3 , 'driveFrames':10, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            #{'label':'far-rndm', 'dummy':True, 'prime':0, 'stim':None, 'extra':2 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            #{'label':'far-rnd2', 'dummy':True, 'prime':0, 'stim':None, 'extra':2 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
         ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
         self.dummies = [i for i in self.handler.staircases if i.condition['dummy']]
@@ -67,8 +72,7 @@ class CODExperiment(CLatencyExperiment):
             data['diopters'] = abs(primeWindow-mainWindow)
             # set up stimuli with some randomness
             prime = self.primeStim[primeWindow]   # choose the right prime text stimulus
-            text, primeValue = self.genLogicPrimer()        # set the text and store the value for the primer
-            prime.text = text
+            primeIter = random.choice(self.config.primePresentations)
             data['primeDepth'] = self.config.monitors[primeWindow].currentCalib['distance']
             direction = random.randint(0,3)
             main = self.mainStim[mainWindow][direction]
@@ -81,10 +85,19 @@ class CODExperiment(CLatencyExperiment):
             driveFrames = condition['driveFrames']
             # run the proceedure
             #print(direction, self.responses[direction])
-            self.present(prime)
-            self.stimuliTime[0] = self.clock.getTime()
-            resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
+            itr = 0
+            resp1 = False
+            primeValue = True
+            while itr < primeIter or resp1 != primeValue:
+                text, primeValue = self.genLogicPrimer()        # set the text and store the value for the primer
+                prime.text = text
+                self.present(prime)
+                self.stimuliTime[0] = self.clock.getTime()
+                self.waitTime(.5)
+                resp1 = self.waitForResponse(self.joy.getAllButtons,[0,1],true=[[True,False]],false=[[False,True]])
+                itr += 1
             self.clear(prime)
+            data['primeIter'] = itr
             data['primeTime'] = self.clock.getTime() - self.stimuliTime[0]
             if driveFrames > 0:
                 self.present(extra)
@@ -107,8 +120,8 @@ class CODExperiment(CLatencyExperiment):
             while resp2 is None:
                 resp2 = self.waitForResponse(self.joy.getAllHats,[0],true=[self.responses[direction]],false=[i for i in self.responses if i != self.responses[direction]])
             self.clear(post)
-            self.clearStimuli()
             data['responseTime'] = self.clock.getTime() - self.stimuliTime[0]
+            self.clearStimuli()
             # record the results
             data['primeCorrect'] = resp1 == primeValue
             data['correct'] = resp2
@@ -128,11 +141,10 @@ class CODExperiment(CLatencyExperiment):
                 for k, v in data.items():
                     self.handler.addOtherData(k,v)
                 # add an inital rule for vPest
-                #if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
-                #    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
-                #    self.handler.currentStaircase._intensityDec()
-                #    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
-                #    #self.handler.currentStaircase.calculateNextIntensity()
+                if data['correct'] and len(self.handler.currentStaircase.reversalIntensities) == 0 and self.handler.currentStaircase.currentDirection in ['down', 'start']:
+                    self.handler.currentStaircase.stimuliLevelTrialCounts.append(self.handler.currentStaircase.currentLevelTrialCount)
+                    self.handler.currentStaircase._intensityDec()
+                    self.handler.currentStaircase.stepChangeidx = len(self.handler.currentStaircase.data)
             else:
                 self.handler.currentStaircase.intensities.pop()
             if self.storeData:
@@ -166,9 +178,14 @@ if __name__ == '__main__':
         userInfo = Experiment.loadUser(os.path.join(config.dataPath,'od',config.userFile), int(sys.argv[1]))
         print('Running with user %s'%userInfo['Name'])
         config.userInfo = userInfo
+        #config.storeData = False
+        alignExp = AlignExperiment(config)
+        alignExp.run()
+        alignExp.close(False)
+        config.windows = alignExp.windows
+        config.joy = alignExp.joy
     else:
-        '''
-        config.storeData = False
+        #config.storeData = False
         alignExp = AlignExperiment(config)
         alignExp.run()
         alignExp.close(False)
@@ -179,8 +196,8 @@ if __name__ == '__main__':
         acuityExp.run()
         acuityExp.close(False)
         config.acuity = acuityExp.acuity
-        config.storeData = True
         #'''
+    #config.storeData = True
     experiment = CODExperiment(config)
     experiment.run()
     experiment.close()

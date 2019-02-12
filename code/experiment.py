@@ -32,7 +32,7 @@ class Experiment(ABC):
         self.setupWindows()
         if getattr(config,'joystick',True):
             self.setupJoystick()
-        self.newUser = True
+        self.newUser = True if getattr(self,'userInfo',None) is None else False
         if self.storeData:
             self.getUser()
             if self.userInfo is None:
@@ -154,7 +154,11 @@ class Experiment(ABC):
         self.proceedure()
     def close(self, ui=True):
         if self.storeData:
-            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s_%s'%(self.userInfo['ID'],self.config.stairFile,self.userInfo['Date'][-1])))
+            # add user data to handler
+            self.userInfo.pop('Name')
+            self.handler.userInfo = self.userInfo
+            # write out handler
+            self.handler.saveAsPickle(os.path.join(self.config.dataPath,'%s_%s'%(self.fileName,self.config.stairFile)))
             #self.handler.saveAsExcel(os.path.join(self.config.dataPath,'%s_%s.xlsx'%(self.userInfo['ID'],self.config.stairFile)))
             self.dataFile.close()
         if ui:

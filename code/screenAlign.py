@@ -4,19 +4,30 @@ import os
 import config
 
 class AlignExperiment(Experiment):
+    def __init__(self, config):
+        config.storeData = False
+        super().__init__(config)
     def setupData(self):
         pass
     def setupStimuli(self):
         self.current = 0
         allStim = []
+        self.rightStim = []
+        self.leftStim = []
         for win in self.windows:
-            #textStim = visual.TextStim(win=win,height=.15,pos=[0,0],autoLog=True, flipHoriz=win.flipHoriz)
-            #textStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
-            #textStim.font = os.path.splitext(self.config.stimulusFont)[0]
-            #textStim.text = 'O'
-            #allStim.append(textStim)
-            stim = visual.GratingStim(win=win, mask="circle", size=.3, pos=[0,0], sf=20, contrast=0, autoLog=True)
+            stim = visual.Circle(win=win, radius=.3, edges=32)
             allStim.append(stim)
+            '''
+            sign = -1 if win.flipHoriz else 1
+            vertR = visual.Line(win=win, units='cm', start=(3*sign,-100), end=(3*sign,100))
+            vertL = visual.Line(win=win, units='cm', start=(3*sign*-1,-100), end=(3*sign*-1,100))
+            vertR.sign = sign
+            vertL.sign = sign
+            self.rightStim.append(vertR)
+            self.leftStim.append(vertL)
+            allStim.append(vertR)
+            allStim.append(vertL)
+            '''
         indicatorStim = visual.TextStim(win=win,height=.3,pos=[-3,3],autoLog=True, flipHoriz=win.flipHoriz)
         indicatorStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         indicatorStim.font = os.path.splitext(self.config.stimulusFont)[0]
@@ -40,6 +51,18 @@ class AlignExperiment(Experiment):
         self.current %= len(self.windows)
         self.stimuli[-1].text = '%s'%self.current
         if self.joyHats != [0,0]:
+            '''
+            for stim in self.rightStim:
+                if isinstance(stim,visual.Line):
+                    stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / 40, stim.start[1])
+                    stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / 40, stim.end[1])
+            print(self.rightStim[0].start[0],end=', ')
+            for stim in self.leftStim:
+                if isinstance(stim,visual.Line):
+                    stim.start = (stim.start[0] + self.joyHats[0][1] * stim.sign / -40, stim.start[1])
+                    stim.end = (stim.end[0] + self.joyHats[0][1] * stim.sign / -40, stim.end[1])
+            print(self.leftStim[0].start[0])
+            '''
             v = np.array(self.windows[self.current].viewPos)
             v += np.array(self.joyHats[0])/25
             self.windows[self.current].viewPos = v
@@ -62,6 +85,6 @@ class AlignExperiment(Experiment):
 
 
 if __name__ == '__main__':
-    experiment = AlignExperiment(config, False)
+    experiment = AlignExperiment(config)
     experiment.run()
     experiment.close()

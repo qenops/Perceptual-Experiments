@@ -4,6 +4,11 @@ import os, random
 import config
 
 class AcuityExperiment(Experiment):
+    def __init__(self, config):
+        revertStoreData = getattr(config,'storeData',True)
+        config.storeData = False
+        super().__init__(config)
+        config.storeData = revertStoreData
     def setupData(self):
         pass
     def setupStimuli(self):
