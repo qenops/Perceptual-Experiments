@@ -85,19 +85,19 @@ fontP.set_size('small')
 avg = [[sum(x)/len(x) for x in zip(*i)] for i in allData]
 ax.plot(list(zip(*avg))[0],list(zip(*avg))[1],'.-',label='Mean',linewidth=2.0)
 ax.legend(prop=fontP)
-ax.xaxis.set_label_text('T1 (s)')
-ax.yaxis.set_label_text('T1+T2 (s)')
+ax.xaxis.set_label_text('T1 (seconds)')
+ax.yaxis.set_label_text('T1+T2 (seconds)')
 ax.set_title('Overdriven Latency')
 #ax.set_ylim(bottom=0,top=.95)
 ax.set_xlim(left=0,right=.3)
 ax.plot([0,.1,.2,.3],[0,.1,.2,.3],'-.',color='gray',linewidth=1)
-canvas2.print_figure('OD-0')
+canvas2.print_figure('sac-0')
 
 ax2.legend()
 ax2.xaxis.set_label_text('Diopters')
 ax2.yaxis.set_label_text('Latency')
 ax2.set_title('Latency')
-canvas3.print_figure('OD-1')
+canvas3.print_figure('sac-1')
 
 def make_od_plot():
     near = []
