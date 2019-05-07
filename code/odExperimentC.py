@@ -196,6 +196,7 @@ if __name__ == '__main__':
         acuityExp.run()
         acuityExp.close(False)
         config.acuity = acuityExp.acuity
+        config.nearacuity = acuityExp.nearAcuity
         #'''
     #config.storeData = True
     experiment = CODExperiment(config)

@@ -100,17 +100,20 @@ class Experiment(ABC):
         # prepare the dialoge
         #labels = {'Acuity':'Acuity: \t20/'}
         labels = {}
-        order = ['Name','Age','Acuity','IPD','ID','Date']
+        order = ['Name','Age','Far Acuity', 'Near Acuity','IPD','ID','Date']
         self.userInfo = getattr(self.config,'userInfo',None)
         if self.userInfo is None:
             self.userInfo = {'Name':'','Age':20}
             self.userInfo['Date'] = [data.getDateStr()]  # add the current time
             self.userInfo['ID'] = len(allUsers)
-            self.userInfo['Acuity'] = getattr(self.config,'acuity',20) #acuity if acuity is not None else '20'
+            self.userInfo['Far Acuity'] = getattr(self.config,'acuity',20) #acuity if acuity is not None else '20'
+            self.userInfo['Near Acuity'] = getattr(self.config,'nearacuity',20) #acuity if acuity is not None else '20'
             self.userInfo['IPD'] = getattr(self.config,'ipd',60) #ipd if ipd is not None else '60'
             fixed=['Date','ID']
             if getattr(self.config,'acuity',None) is not None:
-                fixed.append('Acuity')
+                fixed.append('Far Acuity')
+            if getattr(self.config,'nearacuity',None) is not None:
+                fixed.append('Near Acuity')
             if getattr(self.config,'ipd',None) is not None:
                 fixed.append('IPD')
         else:

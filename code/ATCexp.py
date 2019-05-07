@@ -30,10 +30,8 @@ import config
 #import dGraph.util.imageManip as dgim
 #import multiprocessing as mp
 
-class CLatencyExperiment(Experiment):
+class ATCExperiment(Experiment):
     def __init__(self, config, append=True):
-        if append:
-            config.dataPath += '/latency'
         super().__init__(config)
     def setupData(self):
         self.dataKeys = ['trial','primeIter','primeCorrect','primeTime','primeDepth','stimDepth','diopters','nearToFar','direction','size','intensity','requestedLatency','actualLatency','totalLatency','responseTime','correct']
@@ -316,6 +314,7 @@ class CLatencyExperiment(Experiment):
         return "%d+%d=%d"%(first, second, sum), TF
 
 if __name__ == '__main__':
+    '''
     if len(sys.argv) > 1:
         userInfo = Experiment.loadUser(os.path.join(config.dataPath,'latency',config.userFile), int(sys.argv[1]))
         print('Running with user %s'%userInfo['Name'])
@@ -334,6 +333,7 @@ if __name__ == '__main__':
         config.acuity = acuityExp.acuity
         config.nearacuity = acuityExp.nearAcuity
     config.storeData = True
-    experiment = CLatencyExperiment(config)
+    '''
+    experiment = ATCExperiment(config)
     experiment.run()
     experiment.close()

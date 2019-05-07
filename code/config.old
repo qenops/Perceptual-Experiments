@@ -39,31 +39,13 @@ mon_800cm = psychopy.monitors.calibTools.Monitor(name="800cm")
 mon_800cm.currentCalib['distance'] = 800.0
 mon_800cm.currentCalib['sizePix'] = [1080, 1920]
 mon_800cm.currentCalib['width'] = 86.5
-mon_800cm.screenPos = (-2560, 2976)
+mon_800cm.screenPos = (4096, 1440)
 mon_800cm.center = (-0.08,-0.08)  # position of center in units
 #mon_800cm.screen = 3
 mon_800cm.flipHoriz = False
 mon_800cm.color = [-1,-1,-1]
 
-mon_801cm = psychopy.monitors.calibTools.Monitor(name="801cm")
-mon_801cm.currentCalib['distance'] = 800.0
-mon_801cm.currentCalib['sizePix'] = [1080, 1920]
-mon_801cm.currentCalib['width'] = 86.5
-mon_801cm.screenPos = (-1480, 2976)
-mon_801cm.center = (-0.08,-0.08)  # position of center in units
-mon_801cm.flipHoriz = False
-mon_801cm.color = [-1,-1,-1]
-
-mon_802cm = psychopy.monitors.calibTools.Monitor(name="802cm")
-mon_802cm.currentCalib['distance'] = 800.0
-mon_802cm.currentCalib['sizePix'] = [1080, 1920]
-mon_802cm.currentCalib['width'] = 86.5
-mon_802cm.screenPos = (-400, 2976)
-mon_802cm.center = (-0.08,-0.08)  # position of center in units
-mon_802cm.flipHoriz = False
-mon_802cm.color = [-1,-1,-1]
-
-monitors=[mon_33cm,mon_50cm,mon_100cm,mon_800cm,mon_801cm,mon_802cm]
+monitors=[mon_33cm,mon_50cm,mon_100cm,mon_800cm]
 #monitors=[mon_33cm,mon_50cm]
 #monitors=[mon_33cm]
 
@@ -81,7 +63,7 @@ window.close()
 joyID = 0
 
 ### data parameters ###
-dataPath = './airData'
+dataPath = './data'
 userFile = 'users.psydat'
 stairFile = 'stair'
 

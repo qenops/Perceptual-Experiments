@@ -34,29 +34,57 @@ class AcuityExperiment(Experiment):
         self.stimuliTime = [0] * len(self.stimuli)
     def setupHandler(self):
         # create the staircase handler
-        self.handler = data.StairHandler(startVal = 25, minVal=1, maxVal=150,
+        self.farHandler = data.StairHandler(startVal = 25, minVal=1, maxVal=150,
                                 stepType = 'db', stepSizes=[10,5,2.5,2.5,1.25,1.25],
                                 nUp=1, nDown=3,  # will home in on the 80% threshold
                                 nTrials=10)
-        #self.handler = data.QuestHandler(startVal=25, startValSd=25, pThreshold=0.82,nTrials=50,stopInterval=.9,minVal=1)
+        self.nearHandler = data.StairHandler(startVal = 25, minVal=1, maxVal=150,
+                                stepType = 'db', stepSizes=[10,5,2.5,2.5,1.25,1.25],
+                                nUp=1, nDown=3,  # will home in on the 80% threshold
+                                nTrials=10)
+        #self.farHandler = data.QuestHandler(startVal=25, startValSd=25, pThreshold=0.82,nTrials=50,stopInterval=.9,minVal=1)
     def proceedure(self):
         '''The proceedure of the experiment'''
+        self.windows[-1].color = [1,1,1]
         count = 0
-        for size in self.handler:
+        for size in self.farHandler:
             self.presentStimulus(self.prompt)
             current = random.randint(0,len(self.stimuli)-2)
             self.stimuli[current].height = size/60
             self.presentStimulus(current)
             correct = self.waitForResponse(self.joy.getAllHats,[0],true=[self.responses[current]],false=[i for i in self.responses if i != self.responses[current]])
             self.clearStimuli()
-            self.handler.addResponse(correct)
+            self.farHandler.addResponse(correct)
             count += 1
             print('Trial # %s: size = %s'%(count,size))
             self.waitTime(1)
         self.acuity = size*4
+        self.windows[-1].color = [-1,-1,-1]
+        self.presentStimulus(self.prompt)
+        self.windows[-1].flip()
+        self.clearStimuli()
+        self.windows[0].color = [1,1,1]
+        for stim in self.stimuli:
+            stim.win = self.windows[0]
+            stim.flipHoriz= self.windows[0].flipHoriz
+        count = 0
+        for size in self.nearHandler:
+            self.presentStimulus(self.prompt)
+            current = random.randint(0,len(self.stimuli)-2)
+            self.stimuli[current].height = size/60
+            self.presentStimulus(current)
+            correct = self.waitForResponse(self.joy.getAllHats,[0],true=[self.responses[current]],false=[i for i in self.responses if i != self.responses[current]])
+            self.clearStimuli()
+            self.nearHandler.addResponse(correct)
+            count += 1
+            print('Trial # %s: size = %s'%(count,size))
+            self.waitTime(1)
+        self.nearAcuity = size*4
+        self.windows[0].color = [-1,-1,-1]
     def close(self, ui=True):
         if not ui:
             self.windows[-1].color = [-1,-1,-1]
+            self.windows[0].color = [-1,-1,-1]
             #self.windows[-1].flip()
             self.presentStimulus(0)
             self.clearStimuli()
@@ -66,5 +94,6 @@ if __name__ == '__main__':
     config.storeData = False
     experiment = AcuityExperiment(config)
     experiment.run()
-    print('Acuity is: 20/%s'%experiment.acuity)
+    print('Far acuity is: 20/%s'%experiment.acuity)
+    print('Near acuity is: 20/%s'%experiment.nearAcuity)
     experiment.close()
