@@ -42,44 +42,59 @@ class ATCExperiment(Experiment):
         self.dataFile = open(os.path.join(config.dataPath,'%s.csv'%self.fileName), 'w')  # a simple text file with 'comma-separated-values'
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupStimuli(self):
-        self.chars = self.config.mainChars
-        self.responses = self.config.mainResponses
-        self.primeStim = []
-        self.mainStim = []
-        self.postStim = []
-        fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
-        font = os.path.splitext(self.config.stimulusFont)[0]
-        for win in self.windows:
-            textStim = visual.TextStim(win=win,height=self.config.primeHeight,pos=win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text='Default')
-            self.primeStim.append(textStim)
-            stims = []
-            for char in self.chars:
-                text = '%s\n\n'%char
-                textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=text*12) # '%s\n'%(char * 3)*3
-                stims.append(textStim)
-            self.mainStim.append(stims)
-            text = '%s\n\n'%'O'
-            textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=text*12)
-            self.postStim.append(textStim)
-        #grating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=14, autoLog=True)
-        #postGrating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=14, contrast=0, autoLog=True)
-        self.stimuli = [textStim, textStim, textStim]
-        self.stimuliTime = [0] * len(self.stimuli)
+        self.farWin = self.windows[3:6]
+        self.background = []
+        imgs = os.path.join(self.config.assetsPath,"runway_%s.png")
+        for idx, win in enumerate(self.farWin):
+            back = visual.ImageStim(win,imgs%(idx+1))
+            self.background.append(back)
+        self.planes = ['A220','A319','A320','A321','A330','A350','A380','B737','B738','B739','B73B','B73C','B73M','B74I','B74J','B763','B772','B773','B77X','B788','B789','B78J','B78X']
+        self.airports = ['KJFK','KDFW','KORD','KRDU','KLAX','KSFO','KATL','KSLC','EGLL','EGKK','ZBAA','ZSPD','OMDB','RJTT','VHHH']
+        self.airlines = ['SIG','ACM','TEA','POT','SAC','IES','DPG','JTW','JFB','PEB','AVD','DCE']
+        self.fpsBoard = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.34)+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        self.fpsBoarda = visual.ImageStim(self.windows[0],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.34)+self.windows[1].viewPos,flipHoriz=self.windows[0].flipHoriz,size=self.fpsBoard.size)
+
+        #setup some progress strips
+        #self.outbound = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.1),flipHoriz=self.windows[1].flipHoriz)
+
+        self.animated = []
     def setupHandler(self):
-        conditions = [
-            {'label':'near_0', 'nearToFar':True, 'diopters':0, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_1', 'nearToFar':True, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_2', 'nearToFar':True, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near_3', 'nearToFar':True, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_1', 'nearToFar':False, 'diopters':1, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_2', 'nearToFar':False, 'diopters':2, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'far_3', 'nearToFar':False, 'diopters':3, 'startVal':60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-        ]
-        self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
+        pass
+    def flip(self):
+        self.animate()
+        for window in self.activeWindows:
+            window.flip()
+        allKeys = event.getKeys()
+        for key in allKeys:
+            if key == 'escape':
+                core.quit()
+        if self.joyStateChanged():
+            self.changeState()
+        event.clearEvents()
+    def animate(self):
+        for element in self.animated:
+            element.animate()
     def run(self):
         #if self.newUser:
-        self.tutorial()
-        self.proceedure()
+        self.demo()
+        #self.tutorial()
+        #self.proceedure()
+    def demo(self):
+        for stim in self.background:
+            self.present(stim)
+        self.present(self.fpsBoarda)
+        self.present(self.fpsBoard)
+        self.waitTime(1000)
+    def changeState(self):
+        if self.joyButs[0]:  # 'A'
+            pass
+        if self.joyButs[1]:  # 'B'
+            pass
+        if self.joyButs[7]:  # 'Start'
+            pass
+        if self.joyHats != [[0,0]]:
+            self.fpsBoard.pos += np.array((0,self.joyHats[0][1]*.1))
+            print(self.fpsBoard.pos)
     def tutorial(self):
         # set up instructions
         font = "Bookman"
@@ -313,6 +328,20 @@ class ATCExperiment(Experiment):
         sum = first + second + offset
         return "%d+%d=%d"%(first, second, sum), TF
 
+class AnimatedStim(object):
+    def __init__(self, stim):
+        self._stim = stim
+        self.goal = np.array(self._stim.pos)
+        self.speed = np.array((1,1))
+    def __getattr__(self,attr):
+        return getattr(self._stim, attr)
+    def __setattr__(self,attr,value):
+        setattr(self._stim, attr, value)
+    def animate(self):
+        sign = np.sign(self.goal-self._stim.pos)
+        self._stim.pos += self.speed * sign
+
+
 if __name__ == '__main__':
     '''
     if len(sys.argv) > 1:
@@ -334,6 +363,7 @@ if __name__ == '__main__':
         config.nearacuity = acuityExp.nearAcuity
     config.storeData = True
     '''
+    config.storeData = False
     experiment = ATCExperiment(config)
     experiment.run()
     experiment.close()
