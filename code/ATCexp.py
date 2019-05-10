@@ -30,6 +30,12 @@ import config
 #import dGraph.util.imageManip as dgim
 #import multiprocessing as mp
 
+TAXI = [(-.16,-8.3),(-.16,-9.35),(-.16,-10.4),]
+APRON = [(-7.23,-8.3)]
+RUNWAY = [(6.91,-8.3)]
+
+
+
 class ATCExperiment(Experiment):
     def __init__(self, config, append=True):
         super().__init__(config)
@@ -51,11 +57,20 @@ class ATCExperiment(Experiment):
         self.planes = ['A220','A319','A320','A321','A330','A350','A380','B737','B738','B739','B73B','B73C','B73M','B74I','B74J','B763','B772','B773','B77X','B788','B789','B78J','B78X']
         self.airports = ['KJFK','KDFW','KORD','KRDU','KLAX','KSFO','KATL','KSLC','EGLL','EGKK','ZBAA','ZSPD','OMDB','RJTT','VHHH']
         self.airlines = ['SIG','ACM','TEA','POT','SAC','IES','DPG','JTW','JFB','PEB','AVD','DCE']
-        self.fpsBoard = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.34)+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
-        self.fpsBoarda = visual.ImageStim(self.windows[0],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.34)+self.windows[1].viewPos,flipHoriz=self.windows[0].flipHoriz,size=self.fpsBoard.size)
-
+        self.fpsBoard = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        self.fpsBoarda = visual.ImageStim(self.windows[0],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+self.windows[1].viewPos,flipHoriz=self.windows[0].flipHoriz,size=self.fpsBoard.size)
         #setup some progress strips
-        #self.outbound = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(0,-4.1),flipHoriz=self.windows[1].flipHoriz)
+        self.outbound = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=TAXI[0]+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        textStim = visual.TextStim(self.windows[1],height=self.config.primeHeight,pos=win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text='Default')
+        #self.outbound2 = visual.ImageStim(self.windows[2],os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=APRON[0]+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        #self.outbound3 = visual.ImageStim(self.windows[2],os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=RUNWAY[0]+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        #self.inbound = visual.ImageStim(self.windows[2],os.path.join(self.config.assetsPath,'stripInbound.png'),pos=TAXI[1]+self.windows[1].viewPos,flipHoriz=self.windows[1].flipHoriz)
+        #setup arrows
+        arrows = []
+        for direction in ['Left', 'Down', 'Right', 'Up']:
+            stim = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'buttonW%s.png'%direction))
+
+        
 
         self.animated = []
     def setupHandler(self):
@@ -82,8 +97,12 @@ class ATCExperiment(Experiment):
     def demo(self):
         for stim in self.background:
             self.present(stim)
-        self.present(self.fpsBoarda)
         self.present(self.fpsBoard)
+        self.present(self.fpsBoarda)
+        self.present(self.inbound)
+        self.present(self.outbound)
+        self.present(self.outbound2)
+        self.present(self.outbound3)
         self.waitTime(1000)
     def changeState(self):
         if self.joyButs[0]:  # 'A'
@@ -93,8 +112,8 @@ class ATCExperiment(Experiment):
         if self.joyButs[7]:  # 'Start'
             pass
         if self.joyHats != [[0,0]]:
-            self.fpsBoard.pos += np.array((0,self.joyHats[0][1]*.1))
-            print(self.fpsBoard.pos)
+            self.inbound.pos += np.array((self.joyHats[0][0]*.01,self.joyHats[0][1]*.01))
+            print(self.inbound.pos-self.windows[1].viewPos)
     def tutorial(self):
         # set up instructions
         font = "Bookman"
