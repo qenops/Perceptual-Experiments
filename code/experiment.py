@@ -15,7 +15,7 @@ import numpy as np
 import random
 from abc import ABC, abstractmethod
 
-from psychopy import visual, core, gui, data, event, logging
+from psychopy import visual, core, gui, data, event, logging, tools
 from psychopy.tools.filetools import fromFile, toFile
 from psychopy.hardware import joystick
 
@@ -29,7 +29,7 @@ class Experiment(ABC):
         self.setupLogging()
         self.clock = core.Clock()
         self.timer = core.Clock()
-        self.setupWindows()
+        self.setupWindows(getattr(config,'viewPos',True))
         if getattr(config,'joystick',True):
             self.setupJoystick()
         self.newUser = True if getattr(self,'userInfo',None) is None else False
@@ -46,13 +46,16 @@ class Experiment(ABC):
     def setupLogging(self):
         logging.console.setLevel(logging.ERROR)
         self.log = logging.LogFile(self.config.logFile, level=self.config.logLevel, filemode='w')
-    def setupWindows(self):
+    def setupWindows(self, viewPos=True):
         self.windows = getattr(self.config,'windows',None)
         if self.windows is None:
             #create the windows
             self.windows = [] 
             for monitor in self.config.monitors:
-                win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", viewPos=monitor.center, color=monitor.color,waitBlanking=False)
+                if viewPos:
+                    win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", viewPos=monitor.center, color=monitor.color,waitBlanking=False)
+                else:
+                    win = visual.Window(monitor.getSizePix(), monitor=monitor, screen=monitor.screen, name=monitor.name, fullscr=True, units="deg", color=monitor.color,waitBlanking=False)
                 win.flipHoriz = monitor.flipHoriz
                 self.windows.append(win)
         self.activeWindows = []

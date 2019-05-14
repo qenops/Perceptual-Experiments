@@ -15,7 +15,7 @@ class AlignExperiment(Experiment):
         self.rightStim = []
         self.leftStim = []
         for win in self.windows:
-            stim = visual.Circle(win=win, radius=.3, edges=32)
+            stim = visual.Circle(win=win, units='deg',radius=.3, edges=32)
             allStim.append(stim)
             '''
             sign = -1 if win.flipHoriz else 1
@@ -28,7 +28,7 @@ class AlignExperiment(Experiment):
             allStim.append(vertR)
             allStim.append(vertL)
             '''
-        indicatorStim = visual.TextStim(win=win,height=.3,pos=[-3,3],autoLog=True, flipHoriz=win.flipHoriz)
+        indicatorStim = visual.TextStim(win=win,units='deg',height=.3,pos=[-3,3],autoLog=True, flipHoriz=win.flipHoriz)
         indicatorStim.fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         indicatorStim.font = os.path.splitext(self.config.stimulusFont)[0]
         indicatorStim.text = '%s'%self.current
@@ -64,7 +64,7 @@ class AlignExperiment(Experiment):
             print(self.leftStim[0].start[0])
             '''
             v = np.array(self.windows[self.current].viewPos)
-            v += np.array(self.joyHats[0])/25
+            v += np.array(self.joyHats[0])
             self.windows[self.current].viewPos = v
             self.stimuli[self.current]._needVertexUpdate = True
             self.stimuli[self.current]._needUpdate = True
