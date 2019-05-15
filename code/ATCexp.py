@@ -32,13 +32,16 @@ import config
 #import dGraph.util.imageManip as dgim
 #import multiprocessing as mp
 
-TAXI = [(-.16,-8.3),(-.16,-9.35),(-.16,-10.4),]
-APRON = [(-7.23,-8.3)]
-RUNWAY = [(6.91,-8.3)]
+TAXI = [(-.16,-8.3),(-.16,-9.35),(-.16,-10.4),(-.16,-11.45),(-.16,-12.5),(-.16,-13.55),(-.16,-14.6)]
+APRON = [(-7.23,-8.3),(-7.23,-9.35),(-7.23,-10.4)]
+RUNWAY = [(6.91,-8.3),(6.91,-9.35),(6.91,-10.4)]
+ARRIVALS = [(6.91,0)]
+DEPARTURES = [(-7.23,0)]
 
 PLANES = ['A220','A319','A320','A321','A330','A350','A380','B737','B738','B739','B73B','B73C','B73M','B74I','B74J','B763','B772','B773','B77X','B788','B789','B78J','B78X']
 AIRPORTS = ['KJFK','KDFW','KORD','KRDU','KLAX','KSFO','KATL','KSLC','EGLL','EGKK','ZBAA','ZSPD','OMDB','RJTT','VHHH']
 AIRLINES = ['SIG','ACM','TEA','POT','SAC','IES','DPG','JTW','JFB','PEB','AVD','DCE']
+NUMFLIGHTS = 40
 
 def genFlightStrip(win,back,offset=0,out=True):
     font = "Bookman"
@@ -62,30 +65,6 @@ def genFlightStrip(win,back,offset=0,out=True):
     stim = visual.BufferImageStim(win, stim=[back,flightStim,planeStim,destStim,timeStim],rect=rect,flipHoriz=False)
     stim.units = 'deg'
     stim.size = back.size
-    #print(stim.size)
-    #print(rightTopPix-leftBotPix)
-    #stim.size = tools.monitorunittools.pix2deg(rightTopPix-leftBotPix,win.monitor)
-    #print(stim.size)
-    #print(back.size)
-    #print(np.array((right-left,top-bot)))
-    #stim.size = np.array((right-left,top-bot))
-    #print(stim._texID)
-    #img = visual.ImageStim(win,units='deg')
-    #img.image = np.array(((0,),))
-    #img._needTextureUpdate=False
-    #img._texID = stim._texID
-    #img._updateList()
-    #print(img._texID)
-    #print(img.useShaders)
-    #print(img.image)
-    #img.size = back.size
-    #img.pos = back.pos
-    #debugging
-    #vertR = visual.Line(win=win, units='norm', start=(rect[0],rect[1]), end=(rect[0],rect[3]))
-    #vertL = visual.Line(win=win, units='norm', start=(rect[2],rect[1]), end=(rect[2],rect[3]))
-    #vertT = visual.Line(win=win, units='norm', start=(rect[0],rect[1]), end=(rect[2],rect[1]))
-    #vertB = visual.Line(win=win, units='norm', start=(rect[0],rect[3]), end=(rect[2],rect[3]))
-    #lines = [vertR,vertL,vertT,vertB]
     return stim 
 
 class ATCExperiment(Experiment):
@@ -103,50 +82,48 @@ class ATCExperiment(Experiment):
     def setupStimuli(self):
         #setup some globals
         self.farWin = self.windows[3:6]
-        targetWin = self.windows[1]
-        overdriveWin = self.windows[0]
+        self.targetWin = self.windows[1]
+        self.overdriveWin = self.windows[0]
         #fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         #font = os.path.splitext(self.config.stimulusFont)[0]
         #font = "Bookman"
         #setup some progress strips
-        win = targetWin
-        self.fpsOutBlank = visual.ImageStim(targetWin,os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=[0,0],flipHoriz=targetWin.flipHoriz)
-        self.fpsInBlank  = visual.ImageStim(targetWin,os.path.join(self.config.assetsPath,'stripInbound.png') ,flipHoriz=targetWin.flipHoriz)
+        win = self.targetWin
+        self.fpsOutBlank = visual.ImageStim(self.targetWin,os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=[0,0],flipHoriz=self.targetWin.flipHoriz)
+        self.fpsInBlank  = visual.ImageStim(self.targetWin,os.path.join(self.config.assetsPath,'stripInbound.png') ,flipHoriz=self.targetWin.flipHoriz)
         back = self.fpsOutBlank
-        self.strip2 = genFlightStrip(win,back)
-        #flightStr = '%s%03d'%(random.choice(AIRLINES), random.randint(2,895))
-        #planeStr = random.choice(PLANES)
-        #destStr = random.choice(AIRPORTS)
-        #timeStr = (datetime.now() + timedelta(minutes=0)).strftime('%H%M')
-        #size = np.array(back.size)
-        #self.flightStim = visual.TextStim(win,height=(size[0]*.05),pos=(size*np.array((-.47*(win.flipHoriz*-2+1),.02)))+back.pos+win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=flightStr, alignHoriz='left')
-        #self.planeStim = visual.TextStim(win,height=(size[0]*.04),pos=(size*np.array((.01*(win.flipHoriz*-2+1),.21)))+back.pos+win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=planeStr, alignHoriz='right')
-        #self.destStim = visual.TextStim(win,height=(size[0]*.04),pos=(size*np.array((.01*(win.flipHoriz*-2+1),-.2)))+back.pos+win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=destStr, alignHoriz='right')
-        #self.timeStim = visual.TextStim(win,height=(size[0]*.05),pos=(size*np.array((.35*(win.flipHoriz*-2+1),.02)))+back.pos+win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=timeStr, alignHoriz='right')
+        self.strips[]
+        for i in range(NUMFLIGHTS):
+            self.strips.append(genFlightStrip(win,back))
+        self.apron = []
+        self.taxi = []
+        self.runway = []
+        self.arrivals = []
+        self.departures = []
+        self.boardPairs = [(self.apron,APRON),(self.taxi,TAXI),(self.runway,RUNWAY),(self.arrivals,ARRIVALS),(self.departures,DEPARTURES)]
+        self.boardChanged = False
+        self.nextFlight = 0
+        # put our windows back to natural state by enabling viewPos
         for win in self.windows:
             win.viewPos = np.array(win.monitor.center)
+        #setup planes
         
+        self.animated = []
         #setup arrows
         arrows = []
         for direction in ['Left', 'Down', 'Right', 'Up']:
             stim = visual.ImageStim(self.windows[1],os.path.join(self.config.assetsPath,'buttonW%s.png'%direction))
-
-        self.strip2.win = self.windows[0]
-        self.strip2.pos = TAXI[0] + self.windows[0].viewPos
-        #print(self.strip1.size)
         
-        #self.fpsOutBlank.pos = TAXI[0]
-        #print(self.strip1.units)
         #setup backgrounds
         self.background = []
         imgs = os.path.join(self.config.assetsPath,"runway_%s.png")
         for idx, win in enumerate(self.farWin):
             back = visual.ImageStim(win,imgs%(idx+1),pos=-win.viewPos)
             self.background.append(back)
-        self.fpsBoard = visual.ImageStim(targetWin,os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+targetWin.viewPos,flipHoriz=targetWin.flipHoriz)
-        self.fpsBoarda = visual.ImageStim(overdriveWin,os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+targetWin.viewPos,flipHoriz=overdriveWin.flipHoriz,size=self.fpsBoard.size)
+        self.fpsBoard = visual.ImageStim(self.targetWin,os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+self.targetWin.viewPos,flipHoriz=self.targetWin.flipHoriz)
+        self.fpsBoarda = visual.ImageStim(self.overdriveWin,os.path.join(self.config.assetsPath,'FPSboard.png'),pos=(-.16,-11.54)+self.targetWin.viewPos,flipHoriz=self.overdriveWin.flipHoriz,size=self.fpsBoard.size)
         
-        self.animated = []
+        
     def setupHandler(self):
         pass
     def flip(self):
@@ -161,6 +138,10 @@ class ATCExperiment(Experiment):
             self.changeState()
         event.clearEvents()
     def animate(self):
+        if boardChanged:
+            for strips, place in self.boardPairs:
+                for stim, pos in zip(strips,place):
+                    stim.pos = pos + self.targetWin.viewPos
         for element in self.animated:
             element.animate()
     def run(self):
@@ -185,22 +166,7 @@ class ATCExperiment(Experiment):
             pass
         if self.joyHats != [[0,0]]:
             self.strip2.pos += np.array((self.joyHats[0][0]*.1,self.joyHats[0][1]*.1))
-            #self.fpsOutBlank.pos += np.array((self.joyHats[0][0]*1,self.joyHats[0][1]*1))
             print(self.strip2.pos-self.windows[1].viewPos)
-            #print(self.strip1._verticesBase)
-            #self.strip2._updateVertices()
-            #pix = tools.monitorunittools.convertToPix(self.strip2._verticesBase,self.strip2.pos,self.strip2.units,self.windows[1])
-            #print(self.strip2._verticesBase)
-            #print(self.strip2.pos)
-            #print(self.strip2.win)
-            #print(self.strip2.units)
-            #print(self.strip2.size)
-            #print(self.strip2.verticesPix)
-            #print(self.strip2.thisScale)
-            #print(self.strip1.verticesPix)
-            #print(pix)
-            #self.strip2._needVertexUpdate = True
-            #self.strip2._needUpdate = True
     def tutorial(self):
         # set up instructions
         font = "Bookman"
@@ -434,18 +400,60 @@ class ATCExperiment(Experiment):
         sum = first + second + offset
         return "%d+%d=%d"%(first, second, sum), TF
 
-class AnimatedStim(object):
-    def __init__(self, stim):
-        self._stim = stim
-        self.goal = np.array(self._stim.pos)
+class AirplaneStim(object):
+    def __init__(self, strip, exper):
+        self._strip = strip
+        self._exper = exper
+        self.path = None
+        # path should have:
+            # goal.pos
+            # goal.ori
+            # goal.scale
+            # goal.steps
+            # stim.index
+            # stim.window
+            # next state
+            # next board
+        self.index = 0
+        self.goal = (np.array((0,0)),np.array((1,1))) # pos, scale
         self.speed = np.array((1,1))
+        self.scale = np.array((0,0))
+        self.steps = 15
+        self.step = 0
+        self.state = -1 # no goal
+        self.board = -1 # no board
+        # load planes
+        self._stim = []
+        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane01.png') ,flipHoriz=self.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane02.png') ,flipHoriz=self.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane03.png') ,flipHoriz=self.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane04.png') ,flipHoriz=self.farWin[1].flipHoriz))
+        
+
     def __getattr__(self,attr):
         return getattr(self._stim, attr)
     def __setattr__(self,attr,value):
         setattr(self._stim, attr, value)
+    def nextGoal(self):  # trigger next animation
+        if self.path is None or self.state != 0:
+            return
+        self.index += 1
+        self.goal = self.path[self.index]
+        dist = self.goal[0]-self._stim.pos
+        self.speed = dist/self.steps
+        scaleDist = self.goal[1]-self._stim.size
+        self.scale = scaleDist/self.steps
+        self.step = 0
+        self.state = 1
+        # trigger a board change
     def animate(self):
-        sign = np.sign(self.goal-self._stim.pos)
-        self._stim.pos += self.speed * sign
+        if self.state != 1:
+            return
+        self._stim.pos += self.speed 
+        self._stim.scale += self.scale
+        self.step += 1
+        if self.step >= self.steps:
+            self.state = 0 # waiting for next trigger
 
 
 if __name__ == '__main__':
