@@ -32,8 +32,8 @@ import config
 #import dGraph.util.imageManip as dgim
 #import multiprocessing as mp
 
-TAXI = [(-.16,-8.3),(-.16,-9.35),(-.16,-10.4),(-.16,-11.45),(-.16,-12.5),(-.16,-13.55),(-.16,-14.6)]
 APRON = [(-7.23,-8.3),(-7.23,-9.35),(-7.23,-10.4)]
+TAXI = [(-.16,-8.3),(-.16,-9.35),(-.16,-10.4),(-.16,-11.45),(-.16,-12.5),(-.16,-13.55),(-.16,-14.6)]
 RUNWAY = [(6.91,-8.3),(6.91,-9.35),(6.91,-10.4)]
 ARRIVALS = [(6.91,0)]
 DEPARTURES = [(-7.23,0)]
@@ -42,6 +42,21 @@ PLANES = ['A220','A319','A320','A321','A330','A350','A380','B737','B738','B739',
 AIRPORTS = ['KJFK','KDFW','KORD','KRDU','KLAX','KSFO','KATL','KSLC','EGLL','EGKK','ZBAA','ZSPD','OMDB','RJTT','VHHH']
 AIRLINES = ['SIG','ACM','TEA','POT','SAC','IES','DPG','JTW','JFB','PEB','AVD','DCE']
 NUMFLIGHTS = 40
+
+# path should have:
+    # goal.pos
+    # goal.ori
+    # goal.size
+    # goal.steps
+    # stim index
+    # window index
+    # board
+    # next state: -1 no stim; 0 pause for trigger; 1 continue animation
+PATH1 =[{'goal':{'pos':np.array((0,0)),'ori':0,'size':np.array((1,1)),'steps':100},'stimIdx':-1,'winIdx':4,'board':0,'nextState':1},
+        {'goal':{'pos':np.array((0,0)),'ori':0,'size':np.array((1,1)),'steps':100},'stimIdx':0,'winIdx':4,'board':0,'nextState':0},
+        {'goal':{'pos':np.array((2.2,.5)),'ori':0,'size':np.array((1.35,.65)),'steps':100},'stimIdx':0,'winIdx':4,'board':1,'nextState':1},
+        {'goal':{'pos':np.array((2.2,.5)),'ori':0,'size':np.array((1.35,.65)),'steps':100},'stimIdx':-1,'winIdx':4,'board':-1,'nextState':-1},
+        ]
 
 def genFlightStrip(win,back,offset=0,out=True):
     font = "Bookman"
@@ -65,6 +80,7 @@ def genFlightStrip(win,back,offset=0,out=True):
     stim = visual.BufferImageStim(win, stim=[back,flightStim,planeStim,destStim,timeStim],rect=rect,flipHoriz=False)
     stim.units = 'deg'
     stim.size = back.size
+    stim.pos = np.array(APRON[0]) + win.monitor.center
     return stim 
 
 class ATCExperiment(Experiment):
@@ -92,7 +108,7 @@ class ATCExperiment(Experiment):
         self.fpsOutBlank = visual.ImageStim(self.targetWin,os.path.join(self.config.assetsPath,'stripOutbound.png'),pos=[0,0],flipHoriz=self.targetWin.flipHoriz)
         self.fpsInBlank  = visual.ImageStim(self.targetWin,os.path.join(self.config.assetsPath,'stripInbound.png') ,flipHoriz=self.targetWin.flipHoriz)
         back = self.fpsOutBlank
-        self.strips[]
+        self.strips = []
         for i in range(NUMFLIGHTS):
             self.strips.append(genFlightStrip(win,back))
         self.apron = []
@@ -107,8 +123,10 @@ class ATCExperiment(Experiment):
         for win in self.windows:
             win.viewPos = np.array(win.monitor.center)
         #setup planes
-        
-        self.animated = []
+        #self.plane = visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane01.png') ,flipHoriz=self.farWin[1].flipHoriz)
+        self.flight = AirplaneStim(self.strips[self.nextFlight],PATH1,self)
+        self.animated = [self.flight]
+        #self.animated = []
         #setup arrows
         arrows = []
         for direction in ['Left', 'Down', 'Right', 'Up']:
@@ -138,10 +156,12 @@ class ATCExperiment(Experiment):
             self.changeState()
         event.clearEvents()
     def animate(self):
-        if boardChanged:
+        if self.boardChanged:
+            print('Changing board')
             for strips, place in self.boardPairs:
                 for stim, pos in zip(strips,place):
                     stim.pos = pos + self.targetWin.viewPos
+            self.boardChanged = False
         for element in self.animated:
             element.animate()
     def run(self):
@@ -155,18 +175,48 @@ class ATCExperiment(Experiment):
         self.present(self.fpsBoard)
         self.present(self.fpsBoarda)
         #self.present(self.fpsOutBlank)
-        self.present(self.strip2)
+        #self.present(self.plane)
+        self.flight.state = 0
+        self.flight.nextGoal()
+        '''
+        self.apron.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.apron.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.taxi.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.taxi.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.taxi.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.taxi.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.runway.append(self.strips[self.nextFlight])
+        self.present(self.strips[self.nextFlight])
+        self.nextFlight += 1
+        self.boardChanged = True
+        '''
         self.waitTime(1000)
     def changeState(self):
         if self.joyButs[0]:  # 'A'
-            pass
+            self.flight.nextGoal()
         if self.joyButs[1]:  # 'B'
             pass
         if self.joyButs[7]:  # 'Start'
             pass
         if self.joyHats != [[0,0]]:
-            self.strip2.pos += np.array((self.joyHats[0][0]*.1,self.joyHats[0][1]*.1))
-            print(self.strip2.pos-self.windows[1].viewPos)
+            pass
+            #self.plane.pos += np.array((self.joyHats[0][0]*.1,self.joyHats[0][1]*.1))
+            #print(self.plane.pos)
+            #print(self.plane.ori)
+            #self.plane.size *= (self.joyHats[0][1]+2)*.5
+            #print(self.plane.size)
     def tutorial(self):
         # set up instructions
         font = "Bookman"
@@ -401,59 +451,90 @@ class ATCExperiment(Experiment):
         return "%d+%d=%d"%(first, second, sum), TF
 
 class AirplaneStim(object):
-    def __init__(self, strip, exper):
-        self._strip = strip
+    def __init__(self, strip, path, exper):
         self._exper = exper
-        self.path = None
-        # path should have:
-            # goal.pos
-            # goal.ori
-            # goal.scale
-            # goal.steps
-            # stim.index
-            # stim.window
-            # next state
-            # next board
-        self.index = 0
+        self.path = path
+        self.pathIndex = -1
         self.goal = (np.array((0,0)),np.array((1,1))) # pos, scale
         self.speed = np.array((1,1))
         self.scale = np.array((0,0))
         self.steps = 15
         self.step = 0
+        self.nextState = -1
         self.state = -1 # no goal
         self.board = -1 # no board
+        self.flightStrip = strip
         # load planes
         self._stim = []
-        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane01.png') ,flipHoriz=self.farWin[1].flipHoriz))
-        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane02.png') ,flipHoriz=self.farWin[1].flipHoriz))
-        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane03.png') ,flipHoriz=self.farWin[1].flipHoriz))
-        self._stim.append(visual.ImageStim(self.farWin[1],os.path.join(self.config.assetsPath,'plane04.png') ,flipHoriz=self.farWin[1].flipHoriz))
-        
+        self._stim.append(visual.ImageStim(self._exper.farWin[1],os.path.join(self._exper.config.assetsPath,'plane01.png') ,flipHoriz=self._exper.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self._exper.farWin[1],os.path.join(self._exper.config.assetsPath,'plane02.png') ,flipHoriz=self._exper.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self._exper.farWin[1],os.path.join(self._exper.config.assetsPath,'plane03.png') ,flipHoriz=self._exper.farWin[1].flipHoriz))
+        self._stim.append(visual.ImageStim(self._exper.farWin[1],os.path.join(self._exper.config.assetsPath,'plane04.png') ,flipHoriz=self._exper.farWin[1].flipHoriz))
+        self.curStim = -1
 
-    def __getattr__(self,attr):
-        return getattr(self._stim, attr)
-    def __setattr__(self,attr,value):
-        setattr(self._stim, attr, value)
+    #def __getattr__(self,attr):
+    #    return getattr(self._stim, attr)
+    #def __setattr__(self,attr,value):
+    #    setattr(self._stim, attr, value)
     def nextGoal(self):  # trigger next animation
+        # path should have:
+            # goal.pos
+            # goal.ori
+            # goal.size
+            # goal.steps
+            # stim index
+            # window index
+            # board
+            # next state
         if self.path is None or self.state != 0:
             return
-        self.index += 1
-        self.goal = self.path[self.index]
-        dist = self.goal[0]-self._stim.pos
+        self.pathIndex += 1
+        print('Getting keyframe %s'%self.pathIndex)
+        keyframe = self.path[self.pathIndex]
+        self.goal = keyframe['goal']
+        dist = self.goal['pos']-self._stim[self.curStim].pos
         self.speed = dist/self.steps
-        scaleDist = self.goal[1]-self._stim.size
+        scaleDist = self.goal['size']-self._stim[self.curStim].size
         self.scale = scaleDist/self.steps
         self.step = 0
+        self.steps = self.goal['steps']
         self.state = 1
+        self.nextState = keyframe['nextState']
+        # manage vis
+        self._stim[self.curStim].win = self._exper.windows[keyframe['winIdx']]
+        if keyframe['stimIdx'] != self.curStim:
+            if self.curStim >= 0:
+                self._exper.clear(self._stim[self.curStim])
+            self.curStim = keyframe['stimIdx']
+            if self.curStim >= 0:
+                self._exper.present(self._stim[self.curStim])
         # trigger a board change
+        if keyframe['board'] != self.board:
+            if self.board >= 0:
+                self._exper.boardPairs[self.board][0].remove(self.flightStrip)
+                self._exper.clear(self.flightStrip)
+            self.board = keyframe['board']
+            if self.board >= 0:
+                self._exper.boardPairs[self.board][0].append(self.flightStrip)
+                self._exper.present(self.flightStrip)
+            self._exper.boardChanged = True
     def animate(self):
+        #print(self.step,self.state,self.curStim)
         if self.state != 1:
             return
-        self._stim.pos += self.speed 
-        self._stim.scale += self.scale
         self.step += 1
-        if self.step >= self.steps:
-            self.state = 0 # waiting for next trigger
+        if self.step > self.steps:
+            self.state = self.nextState # waiting for next trigger
+            self.step = 0
+            print('moved to state %s'%self.state)
+            if self.nextState == 1:
+                self.state = 0
+                self.nextGoal()
+        if self.curStim < 0:
+            return
+        self._stim[self.curStim].pos += self.speed 
+        self._stim[self.curStim].size += self.scale
+        
 
 
 if __name__ == '__main__':
