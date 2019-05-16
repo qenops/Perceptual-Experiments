@@ -171,20 +171,26 @@ class Experiment(ABC):
             for win in self.windows:
                 win.close()
         # something with joystick?
-    def present(self,stim):
+    def present(self,stim,flip=True):
         #show a stimulus without timing
         stim.setAutoDraw(True)
         self.activeWindows.append(stim.win)
-        self.flip()
+        if flip:
+            self.flip()
     def presentStimulus(self,idx):
         #set the stimulus to autodraw
         self.stimuli[idx].setAutoDraw(True)
         self.activeWindows.append(self.stimuli[idx].win)
         self.flip()
         self.stimuliTime[idx] = self.clock.getTime()
-    def clear(self,stim):
+    def clear(self,stim,flip=True):
         stim.setAutoDraw(False)
-        self.flip()
+        try:
+            self.activeWindows.remove(stim.win)
+        except ValueError:
+            pass
+        if flip:
+            self.flip()
     def clearStimuli(self):
         for stim in self.stimuli:
             stim.setAutoDraw(False)
