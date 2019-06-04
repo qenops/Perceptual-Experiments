@@ -17,6 +17,7 @@ from abc import ABC, abstractmethod
 
 from psychopy import visual, core, gui, data, event, logging, tools
 from psychopy.tools.filetools import fromFile, toFile
+from psychopy.tools.monitorunittools import deg2cm
 from psychopy.hardware import joystick
 
 BACKEND = 'pyglet'
@@ -43,6 +44,7 @@ class Experiment(ABC):
             self.setupData()
         self.setupStimuli()
         self.setupHandler()
+        self.concurrent = False
     def setupLogging(self):
         logging.console.setLevel(logging.ERROR)
         self.log = logging.LogFile(self.config.logFile, level=self.config.logLevel, filemode='w')
@@ -129,6 +131,10 @@ class Experiment(ABC):
                 self.newUser = False
             except IndexError:
                 pass
+            if 'Far Acuity' not in self.userInfo:
+                self.userInfo['Far Acuity'] = self.userInfo['Acuity']
+            if 'Near Acuity' not in self.userInfo:
+                self.userInfo['Near Acuity'] = getattr(self.config,'nearacuity',20)
         # present a dialogue to change params
         dlg = gui.DlgFromDict(self.userInfo, labels=labels, title='User Info', order=order, fixed=fixed)
         if dlg.OK:
@@ -185,12 +191,12 @@ class Experiment(ABC):
         self.stimuliTime[idx] = self.clock.getTime()
     def clear(self,stim,flip=True):
         stim.setAutoDraw(False)
+        if flip:
+            self.flip()
         try:
             self.activeWindows.remove(stim.win)
         except ValueError:
             pass
-        if flip:
-            self.flip()
     def clearStimuli(self):
         for stim in self.stimuli:
             stim.setAutoDraw(False)

@@ -1,0 +1,2 @@
+trial,primeIter,primeCorrect,primeTime,primeDepth,stimDepth,extraDepth,driveFrames,nearToFar,diopters,direction,size,intensity,extraLatency,mainLatency,totalLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange
+1,1,True,191.46272060007323,800.0,50.0,33.0,0,False,2,start,0.16666666666666666,60,0,0.9787996000377461,0.9787996000377461,2.5681788999354467,True,near-000,1,1,1,0.625,0.5,start,16,0

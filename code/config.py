@@ -11,7 +11,8 @@ mon_33cm.currentCalib['sizePix'] = [2048, 1536]
 mon_33cm.currentCalib['width'] = 20.0
 mon_33cm.screenPos = (-2560, 1440)
 #mon_33cm.center = (51,223)       # position of center in pix
-mon_33cm.center = (0.865,3.78)  # position of center in deg
+#mon_33cm.center = (0.865,3.78)  # position of center in deg
+mon_33cm.center = (0.22,2.7)
 #mon_33cm.screen = 2
 mon_33cm.flipHoriz = True
 mon_33cm.color = [-1,-1,-1]
@@ -22,7 +23,8 @@ mon_50cm.currentCalib['sizePix'] = [2048, 1536]
 mon_50cm.currentCalib['width'] = 20.0
 mon_50cm.screenPos = (-512, 1440)
 #mon_50cm.center = (31,372)       # position of center in pix
-mon_50cm.center = (0.347,4.16)  # position of center in deg
+#mon_50cm.center = (0.347,4.16)  # position of center in deg
+mon_50cm.center = (0.2,0.18)
 #mon_50cm.screen = 4
 mon_50cm.flipHoriz = True
 mon_50cm.color = [-1,-1,-1]
@@ -33,7 +35,8 @@ mon_100cm.currentCalib['sizePix'] = [2560, 1440]
 mon_100cm.currentCalib['width'] = 70.8
 mon_100cm.screenPos = (1536, 1440)
 #mon_100cm.center = (-23,533)       # position of center in pix
-mon_100cm.center = (-.365,8.445)  # position of center in deg
+#mon_100cm.center = (-.365,8.445)  # position of center in deg
+mon_100cm.center = (-.46,6.24)
 #mon_100cm.screen = 5
 mon_100cm.flipHoriz = True
 mon_100cm.color = [-1,-1,-1]
@@ -54,8 +57,8 @@ mon_801cm.currentCalib['distance'] = 800.0
 mon_801cm.currentCalib['sizePix'] = [1080, 1920]
 mon_801cm.currentCalib['width'] = 86.5
 mon_801cm.screenPos = (-1480, 2976)
-mon_801cm.center = (0,0)       # position of center in pix
-#mon_801cm.center = (0,0)  # position of center in deg
+#mon_801cm.center = (0,0)       # position of center in pix
+mon_801cm.center = (.5,0)  # position of center in deg
 mon_801cm.flipHoriz = False
 mon_801cm.color = [-1,-1,-1]
 
@@ -87,7 +90,7 @@ window.close()
 joyID = 0
 
 ### data parameters ###
-dataPath = './airData'
+dataPath = './data'
 userFile = 'users.psydat'
 stairFile = 'stair'
 

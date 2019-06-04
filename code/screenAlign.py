@@ -64,7 +64,7 @@ class AlignExperiment(Experiment):
             print(self.leftStim[0].start[0])
             '''
             v = np.array(self.windows[self.current].viewPos)
-            v += np.array(self.joyHats[0])
+            v += np.array(self.joyHats[0]) * .01
             self.windows[self.current].viewPos = v
             self.stimuli[self.current]._needVertexUpdate = True
             self.stimuli[self.current]._needUpdate = True

@@ -9,9 +9,9 @@ www.qenops.com
 __author__ = ('David Dunn')
 __version__ = '1.0'
 
-from experiment import Experiment, visual, event, core, data, SPF, logging
+from experiment import Experiment, visual, event, core, data, SPF, logging, deg2cm
 from latencyExpC import CLatencyExperiment
-from userAlign import AlignExperiment
+from userAlignMono import AlignMonoExperiment
 from userAcuity import AcuityExperiment
 
 import numpy as np
@@ -19,10 +19,12 @@ import random, os, sys
 
 import config
 
-class CODExperiment(CLatencyExperiment):
+PATH = ''
+
+class MonoExperiment(CLatencyExperiment):
     def __init__(self, config, append=True):
         if append:
-            config.dataPath += '/mono'
+            os.path.join(config.dataPath,PATH)
         super().__init__(config, append=False)
     def setupData(self):
         super().setupData()
@@ -35,13 +37,29 @@ class CODExperiment(CLatencyExperiment):
         self.dataFile.write('%s\n'%','.join(self.dataKeys))
     def setupStimuli(self):
         super().setupStimuli()
+        # move the stimuli to the side
+        # dang it these are in degrees, but we need cm
+        for stim in self.primeStim:
+            stim.units = 'cm'
+            stim.pos = deg2cm(stim.pos, stim.win.monitor) + np.array((self.userInfo['IPD'],0))
+        for depth in self.mainStim:
+            for stim in depth:
+                stim.units = 'cm'
+                stim.pos = deg2cm(stim.pos, stim.win.monitor) + np.array((self.userInfo['IPD'],0))
+        for stim in self.postStim:
+            stim.units = 'cm'
+            stim.pos = deg2cm(stim.pos, stim.win.monitor) + np.array((self.userInfo['IPD'],0))
+        #self.primeStim[-1].pos += np.array((2.5,0))
+        #for stim in self.mainStim[-1]:
+        #    stim.pos += np.array((-2.5,0))
+        #self.postStim[-1].pos += np.array((-2.5,0))
         self.odStim = self.mainStim
     def setupHandler(self):
         conditions=[
-            {'label':'near-000', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':0 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near-080', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':4 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near-160', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':8 , 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
-            {'label':'near-240', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':12, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-000', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':0 , 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-080', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':4 , 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-160', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':8 , 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
+            {'label':'near-240', 'dummy':False, 'prime':3, 'stim':1, 'extra':0 , 'driveFrames':12, 'startVal': 60, 'stepSizes':[8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
             #{'label':'near-rndm', 'dummy':True, 'prime':3, 'stim':3, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
             #{'label':'near-rnd2', 'dummy':True, 'prime':3, 'stim':2, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
             #{'label':'near-rnd3', 'dummy':True, 'prime':3, 'stim':0, 'extra':1 , 'driveFrames':0, 'startVal': 60, 'stepSizes':[16,8,4,2,1,1], 'method':'4AFC', 'stepType':'lin', 'minVal':0, 'maxVal':80, 'findlay_m':8, 'nTrials':100},
@@ -57,6 +75,13 @@ class CODExperiment(CLatencyExperiment):
         '''The proceedure of the experiment'''
         self.count = 0
         for frames, condition in self.handler:
+            if self.count % 50 == 49:
+                win = self.windows[2]
+                prompt = visual.TextStim(win=win,height=.5,pos=win.viewPos,flipHoriz=win.flipHoriz,font="Bookman",alignHoriz='center',
+                text='Take a break. Press "start" when you are ready to continue.')
+                self.present(prompt)
+                resp1 = self.waitForResponse(self.joy.getAllButtons,[7])
+                self.clear(prompt)
             data = {}
             data['trial'] = self.count + 1
             data['intensity'] = frames
@@ -166,32 +191,33 @@ class CODExperiment(CLatencyExperiment):
                 for stair in self.dummies:
                     stair.finished = True
             #if not set(self.handler.runningStaircases).intersection(self.dummies):
-            if not [i for i in self.handler.runningStaircases if i in self.dummies]:
-                print('No running staircases are dummies. Restarting all dummies.')
-                for stair in self.dummies:
-                    stair.finished = False
-                    stair.reversalIntensities = []
-                    stair.intensities = []
-                    stair.currentStepSizeIdx = 0
-                    stair.currentDirectionStepCount = 0
-                    stair.correctCounter = 0
-                    #stair._nextIntensity = stair.startVal
-                    self.handler.runningStaircases.append(stair)
+            #if not [i for i in self.handler.runningStaircases if i in self.dummies]:
+            #    print('No running staircases are dummies. Restarting all dummies.')
+            #    for stair in self.dummies:
+            #        stair.finished = False
+            #        stair.reversalIntensities = []
+            #        stair.intensities = []
+            #        stair.currentStepSizeIdx = 0
+            #        stair.currentDirectionStepCount = 0
+            #        stair.correctCounter = 0
+            #        #stair._nextIntensity = stair.startVal
+            #        self.handler.runningStaircases.append(stair)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        userInfo = Experiment.loadUser(os.path.join(config.dataPath,'od',config.userFile), int(sys.argv[1]))
+        print(os.path.join(config.dataPath, PATH,config.userFile))
+        userInfo = Experiment.loadUser(os.path.join(config.dataPath,PATH,config.userFile), int(sys.argv[1]))
         print('Running with user %s'%userInfo['Name'])
         config.userInfo = userInfo
         #config.storeData = False
-        alignExp = AlignExperiment(config)
+        alignExp = AlignMonoExperiment(config)
         alignExp.run()
         alignExp.close(False)
         config.windows = alignExp.windows
         config.joy = alignExp.joy
     else:
         #config.storeData = False
-        alignExp = AlignExperiment(config)
+        alignExp = AlignMonoExperiment(config)
         alignExp.run()
         alignExp.close(False)
         config.ipd = alignExp.ipd
@@ -204,6 +230,6 @@ if __name__ == '__main__':
         config.nearacuity = acuityExp.nearAcuity
         #'''
     #config.storeData = True
-    experiment = CODExperiment(config)
+    experiment = MonoExperiment(config)
     experiment.run()
     experiment.close()

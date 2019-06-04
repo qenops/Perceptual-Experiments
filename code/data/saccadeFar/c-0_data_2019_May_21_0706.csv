@@ -1,0 +1,4 @@
+trial,primeIter,primeCorrect,primeTime,primeDepth,stimDepth,extraDepth,driveFrames,nearToFar,diopters,direction,size,intensity,extraLatency,mainLatency,totalLatency,responseTime,correct,caseLabel,caseTrial,trialsAtStep,stepCorrect,expected,w,direction,stepsize,stepChange
+1,3,True,1.2721327999970526,800.0,50.0,800.0,60,False,2,start,0.16666666666666666,60,0.9758073999983026,1.0118277999936254,1.987635199991928,2.4973284999941825,True,radial-anulus,1,1,1,0.625,0.5,start,16,0
+2,2,True,2.214635800002725,800.0,50.0,100.0,60,False,2,start,0.16666666666666666,60,0.9681301999953575,1.004532899998594,1.9726630999939516,1.2480905000047642,True,grating-gauss,1,1,1,0.625,0.5,start,16,0
+3,1,True,8.151358000002801,800.0,800.0,50.0,0,False,0,start,0.16666666666666666,60,0,0.9761944999991101,0.9761944999991101,0.4021080000020447,True,near-rndm,1,1,1,0.625,0.5,start,16,0

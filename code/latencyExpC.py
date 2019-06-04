@@ -51,17 +51,19 @@ class CLatencyExperiment(Experiment):
         self.postStim = []
         fontFiles = [os.path.join(self.config.assetsPath,self.config.stimulusFont)]  # set fontFiles to include our local version of snellen rather than using installed version
         font = os.path.splitext(self.config.stimulusFont)[0]
-        for win in self.windows:
+        for win in self.windows[:4]:
+            if win == self.windows[3]:
+                win = self.windows[4]
             textStim = visual.TextStim(win=win,height=self.config.primeHeight,pos=win.viewPos,autoLog=True, flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text='Default')
             self.primeStim.append(textStim)
             stims = []
             for char in self.chars:
                 text = '%s\n\n'%char
-                textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=text*12) # '%s\n'%(char * 3)*3
+                textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=char)#text=text*12) # '%s\n'%(char * 3)*3
                 stims.append(textStim)
             self.mainStim.append(stims)
             text = '%s\n\n'%'O'
-            textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text=text*12)
+            textStim = visual.TextStim(win=win,height=self.config.mainHeight,pos=win.viewPos,autoLog=True,flipHoriz=win.flipHoriz, fontFiles=fontFiles, font=font, text='O')#text=text*12)
             self.postStim.append(textStim)
         #grating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=14, autoLog=True)
         #postGrating = visual.GratingStim(win=self.windows[0], mask="circle", size=3, pos=[0,0], sf=14, contrast=0, autoLog=True)
@@ -79,8 +81,8 @@ class CLatencyExperiment(Experiment):
         ]
         self.handler = data.ExtendedMultiStairHandler(stairType='vpest',conditions=conditions)
     def run(self):
-        #if self.newUser:
-        self.tutorial()
+        if self.newUser:
+            self.tutorial()
         self.proceedure()
     def tutorial(self):
         # set up instructions
